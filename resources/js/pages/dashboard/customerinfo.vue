@@ -14,23 +14,21 @@
         <div class="row mb-3">
             <div class="col-3">Client</div>
             <div class="col-8">
-              <select
-                  class="form-control"
-                  @change="updateElectedEnv"
-                  v-model="selectedOption"
-                  style="width:90%"
-                >
+              <select class="form-control" data-dropdown-css-class="select2-danger" 
+              @change="updateElectedCl"
+              v-model="selectedClientList"
+              style="width: 90%;"
+              >
                   <option value="title">--Select Client--</option>
-                  <option
-                    v-for="(env, index) in myBusinessEnvs"
-                    :value="env.id"
-                    :key="env.id"
+                   <option
+                    v-for="(cl, index) in clientlist"
+                    :value="cl.id"
+                    :key="cl.id"
                     :selected="index === 0 ? 'selected' : false"
                   >
-                    {{ env.environment_name }}-{{ env.address }}
-                      {{ env.city }} {{ env.state }}
-                      {{ env.country }}
-                      {{ env.zip }}
+                    {{ cl.company }}
+                  </option>
+                    
                   </option>
                 </select>
             </div>
@@ -38,23 +36,17 @@
         <div class="row mb-3">
             <div class="col-3">Contact(Person)</div>
             <div class="col-8">
-              <select
-                  class="form-control"
-                  @change="updateElectedEnv"
-                  v-model="selectedOption"
-                  style="width:90%"
-                >
+              <select class="form-control" data-dropdown-css-class="select2-danger" 
+              v-model="selectedContactList"
+              style="width: 90%;">
                   <option value="title">--Select Contact(Person)--</option>
                   <option
-                    v-for="(env, index) in myBusinessEnvs"
-                    :value="env.id"
-                    :key="env.id"
+                    v-for="(cl, index) in contactlist"
+                    :value="cl.id"
+                    :key="cl.id"
                     :selected="index === 0 ? 'selected' : false"
                   >
-                    {{ env.environment_name }}-{{ env.address }}
-                      {{ env.city }} {{ env.state }}
-                      {{ env.country }}
-                      {{ env.zip }}
+                    {{ cl.first }} {{ cl.last }}
                   </option>
                 </select>
             </div>
@@ -62,24 +54,8 @@
         <div class="row mb-3">
             <div class="col-3">Location</div>
             <div class="col-8">
-              <select
-                  class="form-control"
-                  @change="updateElectedEnv"
-                  v-model="selectedOption"
-                  style="width:90%"
-                >
+              <select class="form-control"style="width:90%">
                   <option value="title">--Select Location--</option>
-                  <option
-                    v-for="(env, index) in myBusinessEnvs"
-                    :value="env.id"
-                    :key="env.id"
-                    :selected="index === 0 ? 'selected' : false"
-                  >
-                    {{ env.environment_name }}-{{ env.address }}
-                      {{ env.city }} {{ env.state }}
-                      {{ env.country }}
-                      {{ env.zip }}
-                  </option>
                 </select>
             </div>
         </div>
@@ -428,3 +404,86 @@
   position: relative;
 }
 </style>
+<script>
+export default {
+  data() {
+    return {
+      selectedClientList: "title",
+      selectedContactList: "title",
+    };
+  },
+  components: {
+  },
+  computed: {
+    clientlist() {
+      return this.$store.state.clientlist;
+    },
+    contactlist() {
+      return this.$store.state.contactlist;
+    },
+    csrf() {
+      return document
+        .querySelector('meta[name="csrf-token"]')
+        .getAttribute("content");
+    },
+    select_cl_id() {
+      return sessionStorage.getItem('select_cl_id')
+    },
+    select_contact_id() {
+      return sessionStorage.getItem('select_contact_id')
+    },
+  },
+  methods: {
+     updateElectedCl() {
+      let parentComp = this;
+      if(this.selectedClientList == 'title'){
+        parentComp.$store.dispatch("setclientlist", []);
+        return true;
+      }
+      sessionStorage.setItem(
+        'select_cl_id',
+        this.selectedClientList,
+      )
+      parentComp.$store.dispatch('actionSetIsLoading', true)
+      $.ajax({
+        url: "/v1/contactlist",
+        type: "POST",
+        data: {
+          _token: this.csrf,
+          clientid: this.selectedClientList,
+        },
+        success: function (response) {
+          parentComp.selectedContactList = response[0].id;
+          sessionStorage.setItem(
+            'select_contact_id', response[0].id,
+          )
+          parentComp.$store.dispatch("setcontactlist", response);
+          parentComp.$store.dispatch('actionSetIsLoading', false)
+        },
+      });
+    },
+  },
+  mounted() {
+    let parentComp = this;
+    parentComp.$store.dispatch('actionSetIsLoading', true)
+    $.ajax({
+      url: "/v1/clientlist",
+      type: "GET",
+      success: function (response) {
+        parentComp.selectedClientList = response[0].id;
+        sessionStorage.setItem(
+          'select_cl_id', response[0].id,
+        )
+        parentComp.$store.dispatch("setclientlist", response);
+        parentComp.$store.dispatch('actionSetIsLoading', false)
+      },
+    });
+
+    /*//set session client id
+    if(this.select_cl_id != null){
+      this.selectedClientList = this.select_cl_id
+      this.updateElectedCl()
+    }*/
+  },
+};
+</script>

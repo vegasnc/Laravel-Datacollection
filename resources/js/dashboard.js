@@ -11,17 +11,17 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
     state: {
-        environments: [],
-        selectedEnv: {},
+        clientlist: [],
+        contactlist: [],
         isLoading: false,
         fullPage: false,
     },
     mutations: {
-        updateEnvs(state, payload) {
-            state.environments = payload;
+        updateClientList(state, payload) {
+            state.clientlist = payload;
         },
-        updateSelectedEnv(state, payload) {
-            state.selectedEnv = payload;
+        updateContactList(state, payload) {
+            state.contactlist = payload;
         },
         SET_IS_LOADING(state, payload) {
             state.isLoading = payload;
@@ -31,34 +31,17 @@ const store = new Vuex.Store({
         }
     },
     getters: {
-        myenvs: state => state.environments,
-        selenv: state => state.selectedEnv,
+        clientlist: state => state.clientlist,
+        contactlist: state => state.contactlist,
         getIsLoading: state => state.isLoading,
         getIsFullpage: state => state.fullPage,
     },
     actions: {
-        updateenvs({ commit, dispatch }, payLoad) {
-            commit("updateEnvs", payLoad);
+        setclientlist({ commit }, payLoad) {
+            commit("updateClientList", payLoad);
         },
-        updateSelEnv({ commit, dispatch }, payLoad) {
-            commit("updateSelectedEnv", payLoad);
-        },
-        updateEnv({ commit, dispatch , getters}, payLoad) {
-            let myenvs = getters.myenvs;
-            let newenvarr = myenvs.filter(function(env) {
-                return env.id != payLoad.id;
-            });
-            newenvarr.push(payLoad);
-            commit("updateEnvs", newenvarr);
-        },
-
-        deleteEnv({ commit, dispatch, getters }) {
-            let myenvs = getters.myenvs;
-            let newenvarr = myenvs.filter(function(env) {
-                return env.id != getters.selenv.id;
-            });
-            commit("updateEnvs", newenvarr);
-            $("#deleteenvModal").modal("hide");
+        setcontactlist({ commit }, payLoad) {
+            commit("updateContactList", payLoad);
         },
         actionSetIsLoading({ commit, dispatch }, payLoad) {
             commit("SET_IS_LOADING", payLoad);

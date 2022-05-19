@@ -20,11 +20,10 @@
     <!-- /.content-header -->
     <!-- Main content -->
     <section class="content">
-       <loading :active.sync="isLoading" 
-        :can-cancel="true" 
-        :is-full-page="fullPage"></loading>
       <div class="container-fluid">
-       
+      <loading :active.sync="isLoading" 
+        :can-cancel="true" 
+        :is-full-page="fullPage"></loading> 
         <!-- Main row -->
         <div class="row">
           
@@ -188,11 +187,6 @@ import dashcustomerinfo from "../pages/dashboard/customerinfo";
 export default {
   components: {
     dashcustomerinfo,
-  },
-  data() {
-    return {
-      loading: true,
-    };
   },
   computed: {
     ...mapGetters({

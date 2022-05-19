@@ -26,3 +26,14 @@ mix.js("resources/js/dashboard.js", "public/js").webpackConfig({
         }
     }
 });
+
+
+mix.js("resources/js/test.js", "public/js").webpackConfig({
+    output: { chunkFilename: "js/[name].js?id=[chunkhash]" },
+    resolve: {
+        alias: {
+            vue$: "vue/dist/vue.runtime.esm.js",
+            "@": path.resolve("resources/js")
+        }
+    }
+});
