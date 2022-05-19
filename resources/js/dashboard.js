@@ -13,6 +13,7 @@ const store = new Vuex.Store({
     state: {
         clientlist: [],
         contactlist: [],
+        contactlocation: [],
         isLoading: false,
         fullPage: false,
     },
@@ -22,6 +23,9 @@ const store = new Vuex.Store({
         },
         updateContactList(state, payload) {
             state.contactlist = payload;
+        },
+        updateContactLocation(state, payload) {
+            state.contactlocation = payload;
         },
         SET_IS_LOADING(state, payload) {
             state.isLoading = payload;
@@ -33,6 +37,7 @@ const store = new Vuex.Store({
     getters: {
         clientlist: state => state.clientlist,
         contactlist: state => state.contactlist,
+        contactlocation: state => state.contactlocation,
         getIsLoading: state => state.isLoading,
         getIsFullpage: state => state.fullPage,
     },
@@ -42,6 +47,9 @@ const store = new Vuex.Store({
         },
         setcontactlist({ commit }, payLoad) {
             commit("updateContactList", payLoad);
+        },
+        setcontactlocation({ commit }, payLoad) {
+            commit("updateContactLocation", payLoad);
         },
         actionSetIsLoading({ commit, dispatch }, payLoad) {
             commit("SET_IS_LOADING", payLoad);

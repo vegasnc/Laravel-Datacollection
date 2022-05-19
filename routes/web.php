@@ -29,6 +29,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('/clientlist', 'App\Http\Controllers\ApiController@clientlist')->name('clientlist');
 
     Route::POST('/contactlist', 'App\Http\Controllers\ApiController@contactlist')->name('contactlist');
+    Route::POST('/contactlocation', 'App\Http\Controllers\ApiController@contactlocation')->name('contactlocation');
 
     Route::get('/users', 'App\Http\Controllers\TestController@users')->name('users');
 
