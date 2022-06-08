@@ -103,7 +103,9 @@
 <script src="dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="dist/js/pages/dashboard.js"></script>
-
+<!-- Common JS -->
+<script src="dist/js/common.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{env('GOOGLE_MAP_KEY')}}&callback=myMap"></script>
 @yield('script')
 @yield('vuescript')
 </body>
