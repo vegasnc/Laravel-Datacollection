@@ -21,11 +21,11 @@ class ApiController extends Controller
     //Fetch Client information 
     public function clientlist(Request $request)
     {
-        $response = json_decode(file_get_contents(env('API_URL').'API/clientlist.php'), true);
+        $response = json_decode(file_get_contents(env('API_URL_API').'API/clientlist.php'), true);
        // dd($json);
         /*$curl = curl_init();
         curl_setopt_array($curl, array(
-          CURLOPT_URL => env('API_URL').'API/clientlist.php',
+          CURLOPT_URL => env('API_URL_API').'API/clientlist.php',
           CURLOPT_RETURNTRANSFER => true,
           CURLOPT_ENCODING => '',
           CURLOPT_MAXREDIRS => 10,
@@ -48,7 +48,7 @@ class ApiController extends Controller
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-          CURLOPT_URL => env('API_URL').'API/clientcontactlist.php?client_id='.$clientid,
+          CURLOPT_URL => env('API_URL_API').'API/clientcontactlist.php?client_id='.$clientid,
           CURLOPT_RETURNTRANSFER => true,
           CURLOPT_ENCODING => '',
           CURLOPT_MAXREDIRS => 10,
@@ -72,7 +72,7 @@ class ApiController extends Controller
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-          CURLOPT_URL => env('API_URL').'API/clientlocation.php?contact_id='.$contactid,
+          CURLOPT_URL => env('API_URL_API').'API/clientlocation.php?contact_id='.$contactid,
           CURLOPT_RETURNTRANSFER => true,
           CURLOPT_ENCODING => '',
           CURLOPT_MAXREDIRS => 10,
