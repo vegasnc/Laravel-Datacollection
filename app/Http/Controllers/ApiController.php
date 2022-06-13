@@ -37,7 +37,7 @@ class ApiController extends Controller
         $response = curl_exec($curl);
         curl_close($curl);
         $response = json_decode($response,true); */
-        return response()->json($response);
+        //return response()->json($response);
     }
     //Fetch Client wise contact list information 
     public function contactlist(Request $request)

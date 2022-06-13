@@ -1,0 +1,27 @@
+.green-btn {
+  background-color: #10523a;
+  border-color:#10523a;
+}
+.green-btn:hover {
+  background-color: #10523a;
+  border-color:#10523a;
+}
+.btn-link {
+  color:#10523a;
+  text-decoration: underline;
+}
+.btn-link:hover {
+  color:#10523a;
+  text-decoration: none;
+}
+.logo-text {
+  padding-top: 36px;
+  font-weight: bold;
+  color: #10523a;
+}
+
+@media (min-width: 992px){
+.sidebar-mini.sidebar-collapse .content-wrapper, .sidebar-mini.sidebar-collapse .main-footer, .sidebar-mini.sidebar-collapse .main-header {
+     margin-left: 0rem!important; 
+}
+}
