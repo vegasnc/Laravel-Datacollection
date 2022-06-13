@@ -33,10 +33,10 @@
           <div id="appDashboard"></div>
           <!--/.Customer Information -->
 
-          <!-- Types of Assest and services -->
+          <!-- Types of Asset and services -->
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title"><i aria-hidden="true" class="fa fa-info-circle"></i> Select Types of Assest and Services</h3>
+              <h3 class="card-title"><i aria-hidden="true" class="fa fa-info-circle"></i> Select Types of Asset and Services</h3>
             </div>
               <div class="row">
                 <div class="col-md-5">
@@ -166,10 +166,10 @@
               <div class="row">
                 <div class="col-md-8">
                   <div class="form-group row" style="margin:10px 20px;">
-                    <label for="inputPassword" class="col-sm-4 col-form-label">Select An Assets</label>
+                    <label for="inputPassword" class="col-sm-4 col-form-label">Select An Asset</label>
                     <div class="col-sm-8">
                       <select class="form-control">
-                        <option value="">--Select Assets--</option>
+                        <option value="">--Select Asset--</option>
                         <option value="162">ClickOff Graff</option>
                         <option value="156">Ever-Safe</option>
                         <option value="128">Ever-Clean</option>
@@ -188,12 +188,12 @@
             <div class="card-header">
               <h3 class="card-title">
                 <i aria-hidden="true" class="fa fa-info-circle"></i> 
-                Display Selection of Assets
+                Display Selection of Asset
               </h3>
             </div>
             <!-- /.Display Selection of Asset -->
             <div class="card-body">
-             Display Selection of Assets
+             Display Selection of Asset
             </div>
           </div>
           <!-- /.card -->
@@ -227,7 +227,7 @@
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="far fa-chart-bar"></i>
-                  Graph Based on Selected Assets
+                  Graph Based on Selected Asset
                 </h3>
 
                 <div class="card-tools">
