@@ -24,7 +24,22 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('admin.dashboard');
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => env('API_URL_API').'API/clientiteamtype.php',
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => '',
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 0,
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => 'GET',
+        ));
+        $response = curl_exec($curl);
+        curl_close($curl);
+        $clientiteamtype = json_decode($response,true);
+
+        return view('admin.dashboard',compact('clientiteamtype'));
     }
 
     public function logout(Request $request)

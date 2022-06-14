@@ -11,12 +11,10 @@
       <div class="tab-content p-0">
         <div class="row mb-3">
             <div class="col-3">Client</div>
-            <div class="col-8">
+            <div class="col-9">
               <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" 
               @change="updateElectedCl"
-              v-model="selectedClientList"
-              style="width: 90%;"
-              >
+              v-model="selectedClientList">
                   <option value="title">--Select Client--</option>
                    <option
                     v-for="(cl, index) in clientlist"
@@ -33,11 +31,10 @@
         </div>
         <div class="row mb-3">
             <div class="col-3">Contact(Person)</div>
-            <div class="col-8">
+            <div class="col-9">
               <select class="form-control" data-dropdown-css-class="select2-danger"
               @change="updateElectedLocation" 
-              v-model="selectedContactList"
-              style="width: 90%;">
+              v-model="selectedContactList">
                   <option value="title">--Select Contact(Person)--</option>
                   <option
                     v-for="(cl, index) in contactlist"
@@ -52,10 +49,9 @@
         </div>
         <div class="row mb-3">
             <div class="col-3">Location</div>
-            <div class="col-8">
+            <div class="col-9">
               <select class="form-control" data-dropdown-css-class="select2-danger"
-              v-model="selectedLocation"
-              style="width:90%">
+              v-model="selectedLocation">
                   <option value="title">--Select Location--</option>
                   <option
                     v-for="(cl, index) in contactlocation"

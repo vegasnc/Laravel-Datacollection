@@ -87,4 +87,9 @@ class ApiController extends Controller
         $response = json_decode($response,true);
         return response()->json($response);
     }
+    //Get Estimate Propsal
+    public function getEstimateProposal(Request $request){
+         $data = $request->all();
+         
+    }
 }

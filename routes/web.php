@@ -31,6 +31,8 @@ Route::group(['prefix' => 'v1'], function () {
     Route::POST('/contactlist', 'App\Http\Controllers\ApiController@contactlist')->name('contactlist');
     Route::POST('/contactlocation', 'App\Http\Controllers\ApiController@contactlocation')->name('contactlocation');
 
+    Route::POST('/getEstimateProposal', 'App\Http\Controllers\ApiController@getEstimateProposal')->name('getEstimateProposal');
+
     Route::get('/users', 'App\Http\Controllers\TestController@users')->name('users');
 
     Route::post('/create-users', 'App\Http\Controllers\TestController@createUsers')->name('apicreateEnv');

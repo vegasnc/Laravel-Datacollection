@@ -19,6 +19,48 @@
   font-weight: bold;
   color: #10523a;
 }
+.card-title {
+  color: #10523a;
+  font-weight: bold;
+}
+#example1.table td, #example1.table th {
+    padding: 6px 8px;
+    font-size: 14px;
+}
+table#example1.dataTable thead .sorting:before {
+  bottom: 0.5em;
+}
+.content-header {
+    background-color: #10523a;
+    color: #fff;
+}
+#example1_paginate .pagination .page-item.active .page-link {
+    background-color: #10523a;
+    border-color: #10523a;
+    color: #fff;
+}
+#example1_paginate .pagination .page-link {
+  color: #000;
+}
+#example1_paginate .pagination .page-link:focus{
+  box-shadow: none;
+}
+.main-footer a {
+  color: #10523a;
+}
+.content .form-control {
+  box-shadow: 1px 2px 3px #33333324;
+}
+#example1.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #e8f9dc;
+}
+#example1.table-bordered {
+  border: 1px solid #10523a45;
+}
+#example1.table-bordered td, .table-bordered th {
+  border: 1px solid #10523a45;
+}
+
 
 @media (min-width: 992px){
 .sidebar-mini.sidebar-collapse .content-wrapper, .sidebar-mini.sidebar-collapse .main-footer, .sidebar-mini.sidebar-collapse .main-header {
