@@ -3,9 +3,64 @@ $(function () {
     $('#reservation').daterangepicker();
 
 
-    $("#example1").DataTable({
+   /* $("#example1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+*/
+    var table = $('#example1').DataTable({
+      processing: true,
+      serverSide: true,
+      ajax: {
+        url: "v1/getEstimateProposal",
+        type: "POST",
+        data: function (d) {
+          d.itemtype = $(".clientiteamtype option:selected").val();
+          d.startdate = $("#reservation").data('daterangepicker').startDate.format('YYYY-MM-DD');
+          d.enddate = $("#reservation").data('daterangepicker').endDate.format('YYYY-MM-DD');
+          d.select_cl_id = sessionStorage.getItem('select_cl_id');
+          d.select_location_id = sessionStorage.getItem('select_location_id');
+          d.select_contact_id = sessionStorage.getItem('select_contact_id');
+          d._token = $('#token').val();
+        }
+      },
+      columns: [
+        { data: 'est_no', name: 'est_no' },
+        { data: 'client_id', name: 'client_id' },
+        { data: 'company', name: 'company', orderable: false, searchable: false },
+        { data: 'email', name: 'email', orderable: false, searchable: false }
+      ],
+    });
+
+    $('.clientiteamtype').on('change', function (e) {
+      /*var itemtype = this.value;
+      var startdate = $("#reservation").data('daterangepicker').startDate.format('YYYY-MM-DD');
+      var enddate = $("#reservation").data('daterangepicker').endDate.format('YYYY-MM-DD');
+      var select_cl_id = sessionStorage.getItem('select_cl_id');
+      var select_location_id = sessionStorage.getItem('select_location_id');
+      var select_contact_id = sessionStorage.getItem('select_contact_id');
+      var _token = $('#token').val();
+      $.ajax({
+          url: "v1/getEstimateProposal",
+          type: "POST",
+          dataType: "JSON",
+          data: { 
+            _token: _token, 
+            itemtype: itemtype,
+            startdate: startdate,
+            enddate: enddate,
+            select_cl_id: select_cl_id,
+            select_location_id: select_location_id,
+            select_contact_id: select_contact_id, 
+          },
+          success: function(data) {
+              $( "#example1" ).empty().append( data );
+          }
+      });*/
+
+      table.draw();
+    });
+
+
      /*
      * BAR CHART
      * ---------
@@ -32,30 +87,7 @@ $(function () {
       }
     })
     /* END BAR CHART */
-    $('.clientiteamtype').on('change', function (e) {
-      var itemtype = this.value;
-      var daterang = $('#reservation').val();
-      var select_cl_id = sessionStorage.getItem('select_cl_id');
-      var select_location_id = sessionStorage.getItem('select_location_id');
-      var select_contact_id = sessionStorage.getItem('select_contact_id');
-      var _token = $('#token').val();
-      $.ajax({
-          url: "v1/getEstimateProposal",
-          type: "POST",
-          data: { 
-            _token: _token, 
-            itemtype: itemtype,
-            daterang: daterang,
-            select_cl_id: select_cl_id,
-            select_location_id: select_location_id,
-            select_contact_id: select_contact_id, 
-          },
-          dataType: "JSON",
-          success: function(data) {
-              
-          }
-      });
-    });
+   
 });  
 function myMap() {
 var mapProp= {
