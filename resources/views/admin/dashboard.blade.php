@@ -144,7 +144,8 @@
                 </div>
               </div>
               <div class="card-body">
-                <div id="bar-chart" style="height: 300px;"></div>
+                <!-- <div id="bar-chart" style="height: 300px;"></div> -->
+                <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
               </div>
               <!-- /.card-body-->
             </div>

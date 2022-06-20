@@ -110,8 +110,6 @@ class ApiController extends Controller
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-          //CURLOPT_URL => env('API_URL_API').'/API/listestimation.php?client_id='.$select_cl_id.'&location_id='.$select_location_id.'&contact_id='.$select_contact_id.'&start_date='.$startdate.'&end_date='.$enddate.'&itemtype='.$itemtype,
-        //CURLOPT_URL => env('API_URL_API').'/API/listestimation.php?client_id='.$select_cl_id.'&location_id='.$select_location_id.'&contact_id='.$select_contact_id.'&start_date='.$startdate.'&end_date='.$enddate,
           CURLOPT_URL => $url,
           CURLOPT_RETURNTRANSFER => true,
           CURLOPT_ENCODING => '',
@@ -147,8 +145,6 @@ class ApiController extends Controller
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-          //CURLOPT_URL => env('API_URL_API').'/API/listestimation.php?client_id='.$select_cl_id.'&location_id='.$select_location_id.'&contact_id='.$select_contact_id.'&start_date='.$startdate.'&end_date='.$enddate.'&itemtype='.$itemtype,
-        //CURLOPT_URL => env('API_URL_API').'/API/listestimation.php?client_id='.$select_cl_id.'&location_id='.$select_location_id.'&contact_id='.$select_contact_id.'&start_date='.$startdate.'&end_date='.$enddate,
           CURLOPT_URL => $url,
           CURLOPT_RETURNTRANSFER => true,
           CURLOPT_ENCODING => '',
@@ -183,8 +179,6 @@ class ApiController extends Controller
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-          //CURLOPT_URL => env('API_URL_API').'/API/listestimation.php?client_id='.$select_cl_id.'&location_id='.$select_location_id.'&contact_id='.$select_contact_id.'&start_date='.$startdate.'&end_date='.$enddate.'&itemtype='.$itemtype,
-        //CURLOPT_URL => env('API_URL_API').'/API/listestimation.php?client_id='.$select_cl_id.'&location_id='.$select_location_id.'&contact_id='.$select_contact_id.'&start_date='.$startdate.'&end_date='.$enddate,
           CURLOPT_URL => $url,
           CURLOPT_RETURNTRANSFER => true,
           CURLOPT_ENCODING => '',
@@ -226,7 +220,7 @@ class ApiController extends Controller
         usort($out, function($a, $b) {
             return $a['months'] <=> $b['months'];
         });
-        $out = json_encode($out);
+
         return response()->json($out);
     } 
 }
