@@ -123,7 +123,7 @@ export default {
         },
         success: function (response) {
           parentComp.$store.dispatch('actionSetIsLoading', false)
-          parentComp.selectedLocation = response[0].id;
+          //parentComp.selectedLocation = response[0].id;
           sessionStorage.setItem(
             'select_location_id', response[0].id,
           )
@@ -151,7 +151,7 @@ export default {
         },
         success: function (response) {
           parentComp.$store.dispatch('actionSetIsLoading', false)
-          parentComp.selectedContactList = response[0].id;
+          //parentComp.selectedContactList = response[0].id;
           sessionStorage.setItem(
             'select_contact_id', response[0].id,
           )
@@ -168,7 +168,7 @@ export default {
       type: "GET",
       success: function (response) {
         parentComp.$store.dispatch('actionSetIsLoading', false)
-        parentComp.selectedClientList = response[0].id;
+        //parentComp.selectedClientList = response[0].id;
         sessionStorage.setItem(
           'select_cl_id', response[0].id,
         )

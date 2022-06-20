@@ -33,6 +33,10 @@ Route::group(['prefix' => 'v1'], function () {
 
     Route::POST('/getEstimateProposal', 'App\Http\Controllers\ApiController@getEstimateProposal')->name('getEstimateProposal');
 
+    Route::POST('/getGoogleMap', 'App\Http\Controllers\ApiController@getGoogleMap')->name('getGoogleMap');
+
+    Route::POST('/getBarChart', 'App\Http\Controllers\ApiController@getBarChart')->name('getBarChart');
+
     Route::get('/users', 'App\Http\Controllers\TestController@users')->name('users');
 
     Route::post('/create-users', 'App\Http\Controllers\TestController@createUsers')->name('apicreateEnv');

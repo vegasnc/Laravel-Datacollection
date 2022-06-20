@@ -38,7 +38,6 @@ class HomeController extends Controller
         $response = curl_exec($curl);
         curl_close($curl);
         $clientiteamtype = json_decode($response,true);
-
         return view('admin.dashboard',compact('clientiteamtype'));
     }
 
