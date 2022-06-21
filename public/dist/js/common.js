@@ -165,7 +165,7 @@ function myMap1(startdate,enddate) {
 
   var mapOptions7 = {
     center: new google.maps.LatLng(curr_lat,curr_lng),
-    zoom: 3
+    zoom: 8
   };
 
   var map7 = new google.maps.Map(document.getElementById('map'), mapOptions7);
