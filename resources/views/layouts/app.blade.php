@@ -29,7 +29,7 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <img src="{{ asset('dist/img/gg_logo_new.jpg') }}" width="150" height="70">
                 </a>
-                <span class="logo-text">ClickMetrix™ - Login</span>
+                <span class="logo-text">ClickMetrix - Login</span>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>

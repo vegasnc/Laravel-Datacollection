@@ -3,7 +3,7 @@
      <a class="navbar-brand" href="{{ url('/') }}">
                     <img src="{{ asset('dist/img/gg_logo_new.jpg') }}" width="150" height="70">
                 </a>
-                <span class="logo-text">ClickMetrix™ - Administration Home</span>
+                <span class="logo-text">ClickMetrix - Administration Home</span>
     <!-- Left navbar links -->
     <ul class="navbar-nav ml-4" style="padding-top: 36px;">
      

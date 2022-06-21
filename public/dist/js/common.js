@@ -1,4 +1,72 @@
 $(function () {
+    $("#clientlist").select2();
+
+    $('#clientlist').on('select2:select', function (e) {
+      $('#contactlist').val(null).trigger('change');
+      $('#contactlocation').val(null).trigger('change');
+      var select_cl_id = e.params.data.id;
+      sessionStorage.setItem(
+        'select_cl_id', select_cl_id,
+      )
+      $("#contactlist").select2({
+      ajax: {
+          url: "/v1/contactlist",
+          type: "POST",
+          dataType: 'json',
+          delay: 250,
+          data: function (params) {
+             return {
+                _token : $('#token').val(),
+                clientid:sessionStorage.getItem('select_cl_id'),
+                searchTerm: params.term // search term
+             };
+          },
+          processResults: function (response) {
+             return {
+                results: response
+             };
+          },
+          cache: true
+        }
+     });
+    });
+
+    $('#contactlist').on('select2:select', function (e) {
+      $('#contactlocation').val(null).trigger('change');
+      var select_contact_id = e.params.data.id;
+      sessionStorage.setItem(
+        'select_contact_id', select_contact_id,
+      )
+      $("#contactlocation").select2({
+      ajax: {
+          url: "/v1/contactlocation",
+          type: "POST",
+          dataType: 'json',
+          delay: 250,
+          data: function (params) {
+             return {
+                _token : $('#token').val(),
+                clientid:sessionStorage.getItem('select_cl_id'),
+                contactid:sessionStorage.getItem('select_contact_id'),
+                searchTerm: params.term // search term
+             };
+          },
+          processResults: function (response) {
+             return {
+                results: response
+             };
+          },
+          cache: true
+        }
+     });
+    });
+
+    $('#contactlocation').on('select2:select', function (e) {
+      var select_location_id = e.params.data.id;
+      sessionStorage.setItem(
+        'select_location_id', select_location_id,
+      )
+    });  
     //Date range picker
     $('#reservation').daterangepicker();
     /*START Load Estimation propsal in datatable*/
@@ -10,14 +78,12 @@ $(function () {
         url: "v1/getEstimateProposal",
         type: "POST",
         data: function (d) {
-          d.itemtype = $(".clientiteamtype option:selected").val();
           d.startdate = $("#reservation").data('daterangepicker').startDate.format('YYYY-MM-DD');
           d.enddate = $("#reservation").data('daterangepicker').endDate.format('YYYY-MM-DD');
           d.select_cl_id = sessionStorage.getItem('select_cl_id');
           d.select_location_id = sessionStorage.getItem('select_location_id');
           d.select_contact_id = sessionStorage.getItem('select_contact_id');
           d._token = $('#token').val();
-          d.search = $('input[type="search"]').val();
         }
       },
       columns: [
@@ -34,15 +100,14 @@ $(function () {
       }]
     });
 
-    $('.clientiteamtype').on('change', function (e) {
+    $('#reservation').on('hide.daterangepicker', function (ev, picker) {
       table.draw();
-      var itemtype = this.value;
       var startdate = $("#reservation").data('daterangepicker').startDate.format('YYYY-MM-DD');
       var enddate = $("#reservation").data('daterangepicker').endDate.format('YYYY-MM-DD');
       
-      myMap1(itemtype,startdate,enddate);
+      myMap1(startdate,enddate);
 
-      barchart(itemtype,startdate,enddate);
+      barchart(startdate,enddate);
     });
     /*END Load Estimation propsal in datatable*/
 
@@ -84,19 +149,19 @@ $(function () {
 /* END BAR CHART */
 
 /* START OnLoad show default lat and lng in GoogleMap */
-let curr_lat = 51.508742
-let curr_lng = -0.120850
+let curr_lat = 43.651070
+let curr_lng = -79.347015
 function myMap() {
   var mapProp= {
     center:new google.maps.LatLng(curr_lat,curr_lng),
-    zoom:2
+    zoom:8
   };
   var map = new google.maps.Map(document.getElementById("map"),mapProp);
 }
 /* END OnLoad show default lat and lng in GoogleMap */
 
 /*START On Select ItemType load map markers*/
-function myMap1(itemtype,startdate,enddate) {
+function myMap1(startdate,enddate) {
 
   var mapOptions7 = {
     center: new google.maps.LatLng(curr_lat,curr_lng),
@@ -107,7 +172,6 @@ function myMap1(itemtype,startdate,enddate) {
   var lat_lng = new Array();
   var latlngbounds = new google.maps.LatLngBounds();
 
-  var itemtype = itemtype;
   var startdate = startdate;
   var enddate = enddate;
   var select_cl_id = sessionStorage.getItem('select_cl_id');
@@ -120,7 +184,6 @@ function myMap1(itemtype,startdate,enddate) {
       dataType: "JSON",
       data: { 
         _token: _token, 
-        itemtype: itemtype,
         startdate: startdate,
         enddate: enddate,
         select_cl_id: select_cl_id,
@@ -146,8 +209,7 @@ function myMap1(itemtype,startdate,enddate) {
 /*END On Select ItemType load map markers*/
 
 /*START on selct ItemType show data in chart*/
-function barchart(itemtype,startdate,enddate){
-  var itemtype = itemtype;
+function barchart(startdate,enddate){
   var startdate = startdate;
   var enddate = enddate;
   var select_cl_id = sessionStorage.getItem('select_cl_id');
@@ -160,7 +222,6 @@ function barchart(itemtype,startdate,enddate){
       dataType: "JSON",
       data: { 
         _token: _token, 
-        itemtype: itemtype,
         startdate: startdate,
         enddate: enddate,
         select_cl_id: select_cl_id,

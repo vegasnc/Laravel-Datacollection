@@ -29,9 +29,62 @@
     <div class="row mt-3">
         <!-- Left col -->
         <section class="col-lg-7 connectedSortable">
-          <!--Customer Information-->
-          <div id="appDashboard"></div>
-          <!--/.Customer Information -->
+
+          <!-- Custom tabs (Charts with tabs)-->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">
+                <i class="fa fa-info-circle" aria-hidden="true"></i>
+                Customer Information
+              </h3>
+            </div><!-- /.card-header -->
+            <div class="card-body">
+              <div class="tab-content p-0">
+                <div class="row mb-3">
+                    <div class="col-3">Client</div>
+                    <div class="col-9">
+                      <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" id="clientlist" style="width: 100%;">
+                        <option value="">--Select Client--</option>
+                        @foreach($client_list as $val)
+                        <option value="{{$val['id']}}">
+                          <?php 
+                          echo "[";
+                          echo ( !is_null( $val["location"] ) ? $val["location"] : "Unspecified" ); 
+                          echo "] ";
+                          $value_output = stripslashes( $val[ "company" ]);
+                          echo substr($value_output, 0, 50) . (strlen($value_output) > 50 ? "..." : "");
+                          if($val["setup_id"] == 11) 
+                            echo " (Corporate)";
+                          ?>
+                        </option>
+                        @endforeach
+                      </select>  
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-3">Contact(Person)</div>
+                    <div class="col-9">
+                      <select class="form-control select2 select2-danger" id="contactlist" data-dropdown-css-class="select2-danger">
+                          <option value="title">--Select Contact(Person)--</option>
+                      </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-3">Location</div>
+                    <div class="col-9">
+                      <select class="form-control select2 select2-danger" id="contactlocation" data-dropdown-css-class="select2-danger">
+                          <option value="title">--Select location--</option>
+                      </select>
+                    </div>
+                </div> 
+                <!--Customer Information-->
+                <div id="appDashboard"></div>
+                <!--/.Customer Information -->
+              </div>
+            </div><!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+         
 
           <!-- Types of Asset and services -->
           <div class="card">

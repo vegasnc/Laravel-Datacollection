@@ -23,21 +23,12 @@ class ApiController extends Controller
     public function clientlist(Request $request)
     {
         $response = json_decode(file_get_contents(env('API_URL_API').'API/clientlist.php'), true);
-       // dd($json);
-        /*$curl = curl_init();
-        curl_setopt_array($curl, array(
-          CURLOPT_URL => env('API_URL_API').'API/clientlist.php',
-          CURLOPT_RETURNTRANSFER => true,
-          CURLOPT_ENCODING => '',
-          CURLOPT_MAXREDIRS => 10,
-          CURLOPT_TIMEOUT => 0,
-          CURLOPT_FOLLOWLOCATION => true,
-          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-          CURLOPT_CUSTOMREQUEST => 'GET',
-        ));
-        $response = curl_exec($curl);
-        curl_close($curl);
-        $response = json_decode($response,true); */
+        foreach($response as $user){
+           $response[] = array(
+              "id" => $user['id'],
+              "text" => $user['company']
+           );
+        }
         return response()->json($response);
     }
     //Fetch Client wise contact list information 
@@ -45,7 +36,6 @@ class ApiController extends Controller
     {
         $data = $request->all();
         $clientid = $data['clientid'];
-        
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
@@ -60,8 +50,15 @@ class ApiController extends Controller
         ));
         $response = curl_exec($curl);
         curl_close($curl);
-
+        
         $response = json_decode($response,true);
+        foreach($response as $user){
+           $response[] = array(
+              "id" => $user['id'],
+              "text" => $user['first']." ".$user['last']
+           );
+        }
+
         return response()->json($response);
     }
 
@@ -70,10 +67,10 @@ class ApiController extends Controller
     {
         $data = $request->all();
         $contactid = $data['contactid'];
+        $clientid = $data['clientid'];
         $curl = curl_init();
-
         curl_setopt_array($curl, array(
-          CURLOPT_URL => env('API_URL_API').'API/clientlocation.php?contact_id='.$contactid,
+          CURLOPT_URL => env('API_URL_API').'API/clientlocation.php?client_id='.$clientid,
           CURLOPT_RETURNTRANSFER => true,
           CURLOPT_ENCODING => '',
           CURLOPT_MAXREDIRS => 10,
@@ -84,8 +81,13 @@ class ApiController extends Controller
         ));
         $response = curl_exec($curl);
         curl_close($curl);
-
         $response = json_decode($response,true);
+        foreach($response as $user){
+           $response[] = array(
+              "id" => $user['id'],
+              "text" => $user['street_address']
+           );
+        }
         return response()->json($response);
     }
     //Get Estimate Propsal
@@ -96,16 +98,10 @@ class ApiController extends Controller
         $select_contact_id = $data['select_contact_id'];
         $startdate = $data['startdate'];
         $enddate = $data['enddate'];
-        $itemtype = $data['itemtype'];
-        $search = $data['search'];
 
-        if($search == null){
-            //$url = env('API_URL_API').'/API/listestimation.php?client_id=28585&location_id=123580&contact_id=54927&start_date=2020-05-14&end_date=2022-06-14&search='.$search;
-            $url = env('API_URL_API').'/API/listestimation.php?client_id='.$select_cl_id.'&location_id='.$select_location_id.'&contact_id='.$select_contact_id.'&start_date='.$startdate.'&end_date='.$enddate.'&search='.$search;
-        }else{
-            //$url = env('API_URL_API').'/API/listestimation.php?client_id=28585&location_id=123580&contact_id=54927&start_date=2020-05-14&end_date=2022-06-14';
-            $url = env('API_URL_API').'/API/listestimation.php?client_id='.$select_cl_id.'&location_id='.$select_location_id.'&contact_id='.$select_contact_id.'&start_date='.$startdate.'&end_date='.$enddate;    
-        }
+        //$url = env('API_URL_API').'/API/listestimation.php?client_id=28585&location_id=123580&contact_id=54927&start_date=2020-05-14&end_date=2022-06-14';
+        $url = env('API_URL_API').'/API/listestimation.php?client_id='.$select_cl_id.'&location_id='.$select_location_id.'&contact_id='.$select_contact_id.'&start_date='.$startdate.'&end_date='.$enddate;    
+        
 
         $curl = curl_init();
 
@@ -135,12 +131,11 @@ class ApiController extends Controller
         $select_contact_id = $data['select_contact_id'];
         $startdate = $data['startdate'];
         $enddate = $data['enddate'];
-        $itemtype = $data['itemtype'];
 
         
-        //$url = env('API_URL_API').'/API/listestimation.php?client_id=28585&location_id=123580&contact_id=54927&start_date=2020-05-14&end_date=2022-06-14';
+        $url = env('API_URL_API').'/API/listestimation.php?client_id=28585&location_id=123580&contact_id=54927&start_date=2020-05-14&end_date=2022-06-14';
          
-        $url = env('API_URL_API').'/API/listestimation.php?client_id='.$select_cl_id.'&location_id='.$select_location_id.'&contact_id='.$select_contact_id.'&start_date='.$startdate.'&end_date='.$enddate;    
+        //$url = env('API_URL_API').'/API/listestimation.php?client_id='.$select_cl_id.'&location_id='.$select_location_id.'&contact_id='.$select_contact_id.'&start_date='.$startdate.'&end_date='.$enddate;    
 
         $curl = curl_init();
 
@@ -169,12 +164,11 @@ class ApiController extends Controller
         $select_contact_id = $data['select_contact_id'];
         $startdate = $data['startdate'];
         $enddate = $data['enddate'];
-        $itemtype = $data['itemtype'];
 
         
-        //$url = env('API_URL_API').'/API/listestimation.php?client_id=28585&location_id=123580&contact_id=54927&start_date=2020-05-14&end_date=2022-06-14';
+        $url = env('API_URL_API').'/API/listestimation.php?client_id=28585&location_id=123580&contact_id=54927&start_date=2020-05-14&end_date=2022-06-14';
         
-        $url = env('API_URL_API').'/API/listestimation.php?client_id='.$select_cl_id.'&location_id='.$select_location_id.'&contact_id='.$select_contact_id.'&start_date='.$startdate.'&end_date='.$enddate;
+        //$url = env('API_URL_API').'/API/listestimation.php?client_id='.$select_cl_id.'&location_id='.$select_location_id.'&contact_id='.$select_contact_id.'&start_date='.$startdate.'&end_date='.$enddate;
 
         $curl = curl_init();
 
