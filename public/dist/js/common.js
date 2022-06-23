@@ -127,9 +127,11 @@ $(function () {
       labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
       datasets: [
         {
-          label               : 'Selected Asset',
-          backgroundColor     : 'rgba(60,141,188,0.9)',
-          borderColor         : 'rgba(60,141,188,0.8)',
+          label               : 'Selected Asset No of Count Per Month',
+          backgroundColor: '#66bd9d',
+          borderColor: '#66bd9d',
+          hoverBackgroundColor: '#10523a',
+          hoverBorderColor: '#10523a',
           pointRadius          : false,
           pointColor          : '#3b8bba',
           pointStrokeColor    : 'rgba(60,141,188,1)',
