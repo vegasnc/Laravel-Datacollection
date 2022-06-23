@@ -291,10 +291,10 @@ function barchart(startdate,enddate){
             datasets : [
               {
                 label: 'Selected Asset No of Count Per Month',
-                backgroundColor: 'rgba(200, 200, 200, 0.75)',
-                borderColor: 'rgba(200, 200, 200, 0.75)',
-                hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
-                hoverBorderColor: 'rgba(200, 200, 200, 1)',
+                backgroundColor: '#66bd9d',
+                borderColor: '#66bd9d',
+                hoverBackgroundColor: '#10523a',
+                hoverBorderColor: '#10523a',
                 data: countno
               }
             ]
