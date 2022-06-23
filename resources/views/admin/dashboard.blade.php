@@ -98,7 +98,7 @@
                     <input type="hidden" name="token" id="token" value="{{ csrf_token() }}">
                     <div class="col-sm-8">
                     
-                      <select name="type_id" class="form-control clientiteamtype">
+                      <select name="type_id" class="form-control select2 select2-danger" id="clientiteamtype" data-dropdown-css-class="select2-danger">
                         <option value="">--Item Type--</option>
                         @foreach($clientiteamtype as $item)
                           <option value="{{$item['id']}}">{{$item['name']}}</option>
@@ -198,7 +198,8 @@
               </div>
               <div class="card-body">
                 <!-- <div id="bar-chart" style="height: 300px;"></div> -->
-                <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;">No Record Found</canvas>
+                <canvas id="barChartOnAjax" style="display: none;min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;">No Record Found</canvas>
               </div>
               <!-- /.card-body-->
             </div>

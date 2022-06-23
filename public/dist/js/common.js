@@ -66,7 +66,17 @@ $(function () {
       sessionStorage.setItem(
         'select_location_id', select_location_id,
       )
-    });  
+    });
+
+    $("#clientiteamtype").select2();
+
+    $('#clientiteamtype').on('select2:select', function (e) {
+      var select_item_type_id = e.params.data.id;
+      sessionStorage.setItem(
+        'select_item_type_id', select_item_type_id,
+      )
+    });
+
     //Date range picker
     $('#reservation').daterangepicker();
     /*START Load Estimation propsal in datatable*/
@@ -77,6 +87,7 @@ $(function () {
       ajax: {
         url: "v1/getEstimateProposal",
         type: "POST",
+        async: false,
         data: function (d) {
           d.startdate = $("#reservation").data('daterangepicker').startDate.format('YYYY-MM-DD');
           d.enddate = $("#reservation").data('daterangepicker').endDate.format('YYYY-MM-DD');
@@ -181,6 +192,7 @@ function myMap1(startdate,enddate) {
   $.ajax({
       url: "v1/getGoogleMap",
       type: "POST",
+      async: false,
       dataType: "JSON",
       data: { 
         _token: _token, 
@@ -215,10 +227,12 @@ function barchart(startdate,enddate){
   var select_cl_id = sessionStorage.getItem('select_cl_id');
   var select_location_id = sessionStorage.getItem('select_location_id');
   var select_contact_id = sessionStorage.getItem('select_contact_id');
+  var select_item_type_id = sessionStorage.getItem('select_item_type_id');
   var _token = $('#token').val();
   $.ajax({
       url: "v1/getBarChart",
       type: "POST",
+      async: false,
       dataType: "JSON",
       data: { 
         _token: _token, 
@@ -226,19 +240,22 @@ function barchart(startdate,enddate){
         enddate: enddate,
         select_cl_id: select_cl_id,
         select_location_id: select_location_id,
-        select_contact_id: select_contact_id, 
+        select_contact_id: select_contact_id,
+        select_item_type_id: select_item_type_id, 
       },
       success: function(data) {
-        var months = [];
-        var total = [];
+        $("#barChart").hide();
+        $("#barChartOnAjax").show();
+        /*var monthno = [];
+        var countno = [];
 
         for (var i in data) {
-            months.push(data[i].months);
-            total.push(data[i].total);
+            monthno.push(data[i].monthno);
+            countno.push(data[i].countno);
         }
 
         var chartdata = {
-            labels: months,
+            labels: monthno,
             datasets: [
                 {
                     label               : 'Selected Asset',
@@ -249,7 +266,7 @@ function barchart(startdate,enddate){
                     pointStrokeColor    : 'rgba(60,141,188,1)',
                     pointHighlightFill  : '#fff',
                     pointHighlightStroke: 'rgba(60,141,188,1)',
-                    data: total
+                    data: countno
                 }
             ]
         };
@@ -259,7 +276,36 @@ function barchart(startdate,enddate){
         var barGraph = new Chart(graphTarget, {
             type: 'bar',
             data: chartdata
-        });
+        });*/
+        data = JSON.parse(data);
+          var monthno = [];
+          var countno = [];
+
+          $.each(data, function(i, item) {
+              monthno.push(data[i].monthno);
+              countno.push(data[i].countno);
+          });
+
+          var chartdata = {
+            labels: monthno,
+            datasets : [
+              {
+                label: 'Selected Asset No of Count Per Month',
+                backgroundColor: 'rgba(200, 200, 200, 0.75)',
+                borderColor: 'rgba(200, 200, 200, 0.75)',
+                hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
+                hoverBorderColor: 'rgba(200, 200, 200, 1)',
+                data: countno
+              }
+            ]
+          };
+
+          var ctx = $("#barChartOnAjax");
+
+          var barGraph = new Chart(ctx, {
+            type: 'bar',
+            data: chartdata
+          });
       }
   });
 }
