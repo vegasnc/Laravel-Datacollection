@@ -44,7 +44,7 @@
                     <div class="col-3">Asset</div>
                     <div class="col-9">
                         <input type="hidden" name="token" id="token" value="{{ csrf_token() }}">
-                        <select name="type_id" class="form-control select2 select2-danger" id="clientiteamtype" data-dropdown-css-class="select2-danger">
+                        <select name="type_id" class="form-control select2 select2-success" id="clientiteamtype" data-dropdown-css-class="select2-success">
                           <option value="">--Item Type--</option>
                           @foreach($clientiteamtype as $item)
                             <option value="{{$item['id']}}">{{$item['name']}}</option>
@@ -70,7 +70,7 @@
                 <div class="row mb-3">
                     <div class="col-3">Client</div>
                     <div class="col-9">
-                      <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" id="clientlist" style="width: 100%;">
+                      <select class="form-control select2 select2-success" data-dropdown-css-class="select2-success" id="clientlist" style="width: 100%;">
                         <option value="">--Select Client--</option>
                         @foreach($client_list as $val)
                         <option value="{{$val['id']}}">
@@ -91,7 +91,7 @@
                 <div class="row mb-3">
                     <div class="col-3">Contact(Person)</div>
                     <div class="col-9">
-                      <select class="form-control select2 select2-danger" id="contactlist" data-dropdown-css-class="select2-danger">
+                      <select class="form-control select2 select2-success" id="contactlist" data-dropdown-css-class="select2-success">
                           <option value="title">--Select Contact(Person)--</option>
                       </select>
                     </div>
@@ -99,7 +99,7 @@
                 <div class="row mb-3">
                     <div class="col-3">Location</div>
                     <div class="col-9">
-                      <select class="form-control select2 select2-danger" id="contactlocation" data-dropdown-css-class="select2-danger">
+                      <select class="form-control select2 select2-success" id="contactlocation" data-dropdown-css-class="select2-success">
                           <option value="title">--Select location--</option>
                       </select>
                     </div>
