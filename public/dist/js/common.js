@@ -115,7 +115,6 @@ $(function () {
       table.draw();
       var startdate = $("#reservation").data('daterangepicker').startDate.format('YYYY-MM-DD');
       var enddate = $("#reservation").data('daterangepicker').endDate.format('YYYY-MM-DD');
-      
       myMap1(startdate,enddate);
 
       barchart(startdate,enddate);

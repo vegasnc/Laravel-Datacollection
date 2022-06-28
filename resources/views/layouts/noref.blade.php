@@ -42,9 +42,19 @@
 <div class="wrapper">
 
   <!-- Preloader -->
-  <!-- <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
-  </div> -->
+<div class="preloader flex-column justify-content-center align-items-center">
+<div class="spinner-border text-success" role="status">
+  <span class="sr-only">Loading...</span>
+</div>
+  </div>
+
+<div id="spinner-div" class="pt-5">
+  <div class="spinner-border text-success" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+
+
 
   <!-- Navbar -->
   @include('layouts.navbar')
