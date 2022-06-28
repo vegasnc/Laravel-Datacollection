@@ -35,6 +35,33 @@
             <div class="card-header">
               <h3 class="card-title">
                 <i class="fa fa-info-circle" aria-hidden="true"></i>
+                 Select Types of Asset and Services
+              </h3>
+            </div><!-- /.card-header -->
+            <div class="card-body">
+              <div class="tab-content p-0">
+                <div class="row mb-3">
+                    <div class="col-3">Asset</div>
+                    <div class="col-9">
+                        <input type="hidden" name="token" id="token" value="{{ csrf_token() }}">
+                        <select name="type_id" class="form-control select2 select2-danger" id="clientiteamtype" data-dropdown-css-class="select2-danger">
+                          <option value="">--Item Type--</option>
+                          @foreach($clientiteamtype as $item)
+                            <option value="{{$item['id']}}">{{$item['name']}}</option>
+                          @endforeach
+                        </select>
+                    </div>
+                </div>
+              </div>
+            </div><!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+
+          <!-- Custom tabs (Charts with tabs)-->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">
+                <i class="fa fa-info-circle" aria-hidden="true"></i>
                 Customer Information
               </h3>
             </div><!-- /.card-header -->
@@ -87,7 +114,7 @@
          
 
           <!-- Types of Asset and services -->
-          <div class="card">
+          <!-- <div class="card">
             <div class="card-header">
               <h3 class="card-title"><i aria-hidden="true" class="fa fa-info-circle"></i> Select Types of Asset and Services</h3>
             </div>
@@ -119,13 +146,40 @@
                         </div>
                         <input type="text" class="form-control float-right" id="reservation">
                       </div>
-                      <!-- /.input group -->
                     </div>
                   </div>
                 </div>
               </div>
-          </div>
+          </div> -->
           <!--/.Types of Assest and services -->
+
+          <!-- Select Date Range-->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">
+                <i class="fa fa-info-circle" aria-hidden="true"></i>
+                Select Date Range
+              </h3>
+            </div><!-- /.card-header -->
+            <div class="card-body">
+              <div class="tab-content p-0">
+                <div class="row mb-3">
+                    <div class="col-3">Date Range</div>
+                    <div class="col-9">
+                        <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            <i class="far fa-calendar-alt"></i>
+                          </span>
+                        </div>
+                        <input type="text" class="form-control float-right" id="reservation">
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div><!-- /.card-body -->
+          </div>
+          <!-- /. Select Date Range -->
 
           <!-- Display Selection of Asset -->
           <div class="card">

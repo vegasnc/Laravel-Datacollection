@@ -157,6 +157,10 @@ $(function () {
     })
 
     /* END BAR CHART */
+
+    window.onload = function(){
+        sessionStorage.clear();
+    }
    
 });
 /* END BAR CHART */

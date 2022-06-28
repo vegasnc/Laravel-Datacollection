@@ -40,7 +40,6 @@ class HomeController extends Controller
         $clientiteamtype = json_decode($response,true);
 
         $client_list = json_decode(file_get_contents(env('API_URL_API').'API/clientlist.php'), true);
-        
         return view('admin.dashboard',compact('clientiteamtype','client_list'));
     }
 
