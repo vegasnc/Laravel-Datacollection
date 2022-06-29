@@ -26,7 +26,7 @@ Route::get('/logout', [App\Http\Controllers\HomeController::class, 'logout'])->n
 Route::get('/test', [App\Http\Controllers\TestController::class, 'index'])->name('test');
 //End test
 Route::group(['prefix' => 'v1'], function () {
-    Route::get('/clientlist', 'App\Http\Controllers\ApiController@clientlist')->name('clientlist');
+    Route::POST('/clientlist', 'App\Http\Controllers\ApiController@clientlist')->name('clientlist');
 
     Route::POST('/contactlist', 'App\Http\Controllers\ApiController@contactlist')->name('contactlist');
     Route::POST('/contactlocation', 'App\Http\Controllers\ApiController@contactlocation')->name('contactlocation');

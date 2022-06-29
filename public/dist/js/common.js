@@ -1,5 +1,46 @@
 $(function () {
-    $("#clientlist").select2();
+    sessionStorage.clear();
+
+    $("#clientterritory").select2();
+
+    $('#clientterritory').on('select2:select', function (e) {
+      $('#clientlist').val(null).trigger('change');
+      $('#contactlist').val(null).trigger('change');
+      $('#contactlocation').val(null).trigger('change');
+      var select_territory_id = e.params.data.id;
+      sessionStorage.setItem(
+        'select_territory_id', select_territory_id,
+      )
+      $("#clientlist").select2({
+      ajax: {
+          url: "/v1/clientlist",
+          type: "POST",
+          dataType: 'json',
+          delay: 250,
+          data: function (params) {
+             return {
+                _token : $('#token').val(),
+                select_territory_id:sessionStorage.getItem('select_territory_id'),
+                searchTerm: params.term // search term
+             };
+          },
+          processResults: function (response) {
+             return {
+                results: response
+             };
+          },
+          cache: true
+        }
+     });
+    });
+
+    $("#clientlist").select2({
+        minimumInputLength: 3,
+        ajax: {
+            url: '/v1/clientlist',
+            dataType: 'json',
+        },
+    });
 
     $('#clientlist').on('select2:select', function (e) {
       $('#contactlist').val(null).trigger('change');
@@ -59,6 +100,14 @@ $(function () {
           cache: true
         }
      });
+    });
+
+    $("#contactlocation").select2({
+        minimumInputLength: 3,
+        ajax: {
+            url: '/v1/contactlocation',
+            dataType: 'json',
+        },
     });
 
     $('#contactlocation').on('select2:select', function (e) {
@@ -156,10 +205,6 @@ $(function () {
     })
 
     /* END BAR CHART */
-
-    window.onload = function(){
-        sessionStorage.clear();
-    }
    
 });
 /* END BAR CHART */

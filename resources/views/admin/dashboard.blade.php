@@ -68,23 +68,23 @@
             <div class="card-body">
               <div class="tab-content p-0">
                 <div class="row mb-3">
+                    <div class="col-3">For Territory</div>
+                    <div class="col-9">
+                      <select class="form-control select2 select2-success" data-dropdown-css-class="select2-success" id="clientterritory" style="width: 100%;">
+                        <option value="">--Select For Territory--</option>
+                        @foreach($clientterritory as $val)
+                        <option value="{{$val['id']}}">
+                         {{$val['location']}}
+                        </option>
+                        @endforeach
+                      </select>  
+                    </div>
+                </div>
+                <div class="row mb-3">
                     <div class="col-3">Client</div>
                     <div class="col-9">
                       <select class="form-control select2 select2-success" data-dropdown-css-class="select2-success" id="clientlist" style="width: 100%;">
                         <option value="">--Select Client--</option>
-                        @foreach($client_list as $val)
-                        <option value="{{$val['id']}}">
-                          <?php 
-                          echo "[";
-                          echo ( !is_null( $val["location"] ) ? $val["location"] : "Unspecified" ); 
-                          echo "] ";
-                          $value_output = stripslashes( $val[ "company" ]);
-                          echo substr($value_output, 0, 50) . (strlen($value_output) > 50 ? "..." : "");
-                          if($val["setup_id"] == 11) 
-                            echo " (Corporate)";
-                          ?>
-                        </option>
-                        @endforeach
                       </select>  
                     </div>
                 </div>

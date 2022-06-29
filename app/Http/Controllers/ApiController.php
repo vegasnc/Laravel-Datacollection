@@ -22,12 +22,45 @@ class ApiController extends Controller
     //Fetch Client information 
     public function clientlist(Request $request)
     {
-        $response = json_decode(file_get_contents(env('API_URL_API').'API/clientlist.php'), true);
+        $data = $request->all();
+        $territory_id = $data['select_territory_id'];
+        if(isset($data['searchTerm']) && $data['searchTerm']!=''){
+            $searchTerm = $data['searchTerm'];    
+        }else{
+            $searchTerm = "";
+        }
+            
+        
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => env('API_URL_API').'API/clientlist.php?territory_id='.$territory_id.'&searchTerm='.$searchTerm,
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => '',
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 0,
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => 'GET',
+        ));
+        $response = curl_exec($curl);
+        curl_close($curl);
+        $response = json_decode($response,true);
+        $text = "";
         foreach($response as $user){
+            if(isset($user["location"]) && $user["location"] != ""){
+                $text .= "[";
+                $text .= ( !is_null( $user["location"] ) ? $user["location"] : "Unspecified" ); 
+                $text .= "] ";    
+            }
+            $value_output = stripslashes( $user[ "company" ]);
+            $text .= substr($value_output, 0, 50) . (strlen($value_output) > 50 ? "..." : "");
+                             
            $response[] = array(
               "id" => $user['id'],
-              "text" => $user['company']
+              "text" => $text
            );
+           $text = "";
         }
         return response()->json($response);
     }
@@ -68,9 +101,14 @@ class ApiController extends Controller
         $data = $request->all();
         $contactid = $data['contactid'];
         $clientid = $data['clientid'];
+        if(isset($data['searchTerm']) && $data['searchTerm']!=''){
+            $searchTerm = $data['searchTerm'];    
+        }else{
+            $searchTerm = "";
+        }
         $curl = curl_init();
         curl_setopt_array($curl, array(
-          CURLOPT_URL => env('API_URL_API').'API/clientlocation.php?client_id='.$clientid,
+          CURLOPT_URL => env('API_URL_API').'API/clientlocation.php?client_id='.$clientid.'&searchTerm='.$searchTerm,
           CURLOPT_RETURNTRANSFER => true,
           CURLOPT_ENCODING => '',
           CURLOPT_MAXREDIRS => 10,
