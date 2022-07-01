@@ -1,3 +1,10 @@
+.daterangepicker .applyBtn{
+  background-color: #10523a;
+  border-color:#10523a;
+} 
+.daterangepicker td.active, .daterangepicker td.active:hover{
+  background-color: #10523a;
+}
 .green-btn {
   background-color: #10523a;
   border-color:#10523a;

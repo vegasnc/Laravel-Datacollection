@@ -37,9 +37,24 @@ $(function () {
     $("#clientlist").select2({
         minimumInputLength: 3,
         ajax: {
-            url: '/v1/clientlist',
-            dataType: 'json',
-        },
+          url: "/v1/clientlist",
+          type: "POST",
+          dataType: 'json',
+          delay: 250,
+          data: function (params) {
+             return {
+                _token : $('#token').val(),
+                select_territory_id:sessionStorage.getItem('select_territory_id'),
+                searchTerm: params.term // search term
+             };
+          },
+          processResults: function (response) {
+             return {
+                results: response
+             };
+          },
+          cache: true
+        }
     });
 
     $('#clientlist').on('select2:select', function (e) {
@@ -70,6 +85,29 @@ $(function () {
           cache: true
         }
      });
+    });
+
+    $("#contactlist").select2({
+      minimumInputLength: 3,
+      ajax: {
+          url: "/v1/contactlist",
+          type: "POST",
+          dataType: 'json',
+          delay: 250,
+          data: function (params) {
+             return {
+                _token : $('#token').val(),
+                clientid:sessionStorage.getItem('select_cl_id'),
+                searchTerm: params.term // search term
+             };
+          },
+          processResults: function (response) {
+             return {
+                results: response
+             };
+          },
+          cache: true
+        }
     });
 
     $('#contactlist').on('select2:select', function (e) {
@@ -105,9 +143,25 @@ $(function () {
     $("#contactlocation").select2({
         minimumInputLength: 3,
         ajax: {
-            url: '/v1/contactlocation',
-            dataType: 'json',
-        },
+          url: "/v1/contactlocation",
+          type: "POST",
+          dataType: 'json',
+          delay: 250,
+          data: function (params) {
+             return {
+                _token : $('#token').val(),
+                clientid:sessionStorage.getItem('select_cl_id'),
+                contactid:sessionStorage.getItem('select_contact_id'),
+                searchTerm: params.term // search term
+             };
+          },
+          processResults: function (response) {
+             return {
+                results: response
+             };
+          },
+          cache: true
+        }
     });
 
     $('#contactlocation').on('select2:select', function (e) {
@@ -143,6 +197,7 @@ $(function () {
           d.select_cl_id = sessionStorage.getItem('select_cl_id');
           d.select_location_id = sessionStorage.getItem('select_location_id');
           d.select_contact_id = sessionStorage.getItem('select_contact_id');
+          d.select_territory_id = sessionStorage.getItem('select_territory_id');
           d._token = $('#token').val();
         }
       },
@@ -160,15 +215,26 @@ $(function () {
       }]
     });
 
-    $('#reservation').on('hide.daterangepicker', function (ev, picker) {
+  /*  $('#reservation').on('hide.daterangepicker', function (ev, picker) {
       table.draw();
       var startdate = $("#reservation").data('daterangepicker').startDate.format('YYYY-MM-DD');
       var enddate = $("#reservation").data('daterangepicker').endDate.format('YYYY-MM-DD');
       myMap1(startdate,enddate);
 
       barchart(startdate,enddate);
-    });
+    });*/
+    $("#SearchEstimation").on("click", function() {
+      table.draw();
+      var startdate = $("#reservation").data('daterangepicker').startDate.format('YYYY-MM-DD');
+      var enddate = $("#reservation").data('daterangepicker').endDate.format('YYYY-MM-DD');
+      myMap1(startdate,enddate);
+
+      barchart(startdate,enddate);
+    });  
     /*END Load Estimation propsal in datatable*/
+    $("#WinReload").on("click", function() {
+      location.reload();
+    });  
 
     /*START BAR CHART*/
     var areaChartData = {
@@ -238,6 +304,8 @@ function myMap1(startdate,enddate) {
   var select_cl_id = sessionStorage.getItem('select_cl_id');
   var select_location_id = sessionStorage.getItem('select_location_id');
   var select_contact_id = sessionStorage.getItem('select_contact_id');
+  var select_territory_id = sessionStorage.getItem('select_territory_id');
+
   var _token = $('#token').val();
   $.ajax({
       url: "v1/getGoogleMap",
@@ -248,6 +316,7 @@ function myMap1(startdate,enddate) {
         _token: _token, 
         startdate: startdate,
         enddate: enddate,
+        select_territory_id: select_territory_id,
         select_cl_id: select_cl_id,
         select_location_id: select_location_id,
         select_contact_id: select_contact_id, 
@@ -278,6 +347,8 @@ function barchart(startdate,enddate){
   var select_location_id = sessionStorage.getItem('select_location_id');
   var select_contact_id = sessionStorage.getItem('select_contact_id');
   var select_item_type_id = sessionStorage.getItem('select_item_type_id');
+  var select_territory_id = sessionStorage.getItem('select_territory_id');
+
   var _token = $('#token').val();
   $.ajax({
       url: "v1/getBarChart",
@@ -288,6 +359,7 @@ function barchart(startdate,enddate){
         _token: _token, 
         startdate: startdate,
         enddate: enddate,
+        select_territory_id: select_territory_id,
         select_cl_id: select_cl_id,
         select_location_id: select_location_id,
         select_contact_id: select_contact_id,

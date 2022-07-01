@@ -25,11 +25,10 @@ class ApiController extends Controller
         $data = $request->all();
         $territory_id = $data['select_territory_id'];
         if(isset($data['searchTerm']) && $data['searchTerm']!=''){
-            $searchTerm = $data['searchTerm'];    
+            $searchTerm = str_replace(' ', '%20', $data['searchTerm']);    
         }else{
             $searchTerm = "";
         }
-            
         
         $curl = curl_init();
 
@@ -69,10 +68,15 @@ class ApiController extends Controller
     {
         $data = $request->all();
         $clientid = $data['clientid'];
+        if(isset($data['searchTerm']) && $data['searchTerm']!=''){
+            $searchTerm = str_replace(' ', '%20', $data['searchTerm']);    
+        }else{
+            $searchTerm = "";
+        }
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-          CURLOPT_URL => env('API_URL_API').'API/clientcontactlist.php?client_id='.$clientid,
+          CURLOPT_URL => env('API_URL_API').'API/clientcontactlist.php?client_id='.$clientid.'&searchTerm='.$searchTerm,
           CURLOPT_RETURNTRANSFER => true,
           CURLOPT_ENCODING => '',
           CURLOPT_MAXREDIRS => 10,
@@ -85,11 +89,19 @@ class ApiController extends Controller
         curl_close($curl);
         
         $response = json_decode($response,true);
+        $text = "";
         foreach($response as $user){
+            if(isset($user["company"]) && $user["company"] != ""){
+                $text .= "[";
+                $text .= ( !is_null( $user["company"] ) ? $user["company"] : "Unspecified" ); 
+                $text .= "] ";    
+            }
+
            $response[] = array(
               "id" => $user['id'],
-              "text" => $user['first']." ".$user['last']
+              "text" => $user['first']." ".$user['last'].$text
            );
+           $text = "";
         }
 
         return response()->json($response);
@@ -102,7 +114,7 @@ class ApiController extends Controller
         $contactid = $data['contactid'];
         $clientid = $data['clientid'];
         if(isset($data['searchTerm']) && $data['searchTerm']!=''){
-            $searchTerm = $data['searchTerm'];    
+            $searchTerm = str_replace(' ', '%20', $data['searchTerm']);    
         }else{
             $searchTerm = "";
         }
@@ -136,10 +148,10 @@ class ApiController extends Controller
         $select_contact_id = $data['select_contact_id'];
         $startdate = $data['startdate'];
         $enddate = $data['enddate'];
+        $territory_id = $data['select_territory_id'];
 
         //$url = env('API_URL_API').'/API/listestimation.php?client_id=28585&location_id=123580&contact_id=54927&start_date=2020-05-14&end_date=2022-06-14';
-        $url = env('API_URL_API').'API/listestimation.php?client_id='.$select_cl_id.'&location_id='.$select_location_id.'&contact_id='.$select_contact_id.'&start_date='.$startdate.'&end_date='.$enddate;    
-        
+        $url = env('API_URL_API').'API/listestimation.php?territory_id='.$territory_id.'&client_id='.$select_cl_id.'&location_id='.$select_location_id.'&contact_id='.$select_contact_id.'&start_date='.$startdate.'&end_date='.$enddate;    
 
         $curl = curl_init();
 
@@ -169,11 +181,11 @@ class ApiController extends Controller
         $select_contact_id = $data['select_contact_id'];
         $startdate = $data['startdate'];
         $enddate = $data['enddate'];
-
+        $territory_id = $data['select_territory_id'];
         
         //$url = env('API_URL_API').'/API/listestimation.php?client_id=28585&location_id=123580&contact_id=54927&start_date=2020-05-14&end_date=2022-06-14';
          
-        $url = env('API_URL_API').'API/listestimation.php?client_id='.$select_cl_id.'&location_id='.$select_location_id.'&contact_id='.$select_contact_id.'&start_date='.$startdate.'&end_date='.$enddate;    
+        $url = env('API_URL_API').'API/listestimation.php?territory_id='.$territory_id.'&client_id='.$select_cl_id.'&location_id='.$select_location_id.'&contact_id='.$select_contact_id.'&start_date='.$startdate.'&end_date='.$enddate;    
 
         $curl = curl_init();
 
@@ -203,11 +215,13 @@ class ApiController extends Controller
         $startdate = $data['startdate'];
         $enddate = $data['enddate'];
         $select_item_type_id = $data['select_item_type_id'];
+        $territory_id = $data['select_territory_id'];
+        
 
         
         //$url = env('API_URL_API').'/API/listestimation.php?client_id=28585&location_id=123580&contact_id=54927&start_date=2020-05-14&end_date=2022-06-14';
         
-        $url = env('API_URL_API').'API/listestimationcount.php?client_id='.$select_cl_id.'&location_id='.$select_location_id.'&contact_id='.$select_contact_id.'&select_item_type_id='.$select_item_type_id.'&start_date='.$startdate.'&end_date='.$enddate;
+        $url = env('API_URL_API').'API/listestimationcount.php?territory_id='.$territory_id.'&client_id='.$select_cl_id.'&location_id='.$select_location_id.'&contact_id='.$select_contact_id.'&select_item_type_id='.$select_item_type_id.'&start_date='.$startdate.'&end_date='.$enddate;
         $curl = curl_init();
 
         curl_setopt_array($curl, array(

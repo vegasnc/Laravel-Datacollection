@@ -176,6 +176,15 @@
                       </div>
                     </div>
                 </div>
+                <div class="row mb-3">
+                    <div class="col-3"></div>
+                    <div class="col-9">
+                      <div class="input-group">
+                        <button type="button" id="SearchEstimation" class="btn btn-success green-btn mr-1">Search</button>
+                        <button type="button" id="WinReload" class="btn btn-success green-btn">Reset Filter</button>
+                      </div>
+                    </div>
+                </div>
               </div>
             </div><!-- /.card-body -->
           </div>
