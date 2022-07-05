@@ -35,33 +35,6 @@
             <div class="card-header">
               <h3 class="card-title">
                 <i class="fa fa-info-circle" aria-hidden="true"></i>
-                 Select Types of Asset and Services
-              </h3>
-            </div><!-- /.card-header -->
-            <div class="card-body">
-              <div class="tab-content p-0">
-                <div class="row mb-3">
-                    <div class="col-3">Asset</div>
-                    <div class="col-9">
-                        <input type="hidden" name="token" id="token" value="{{ csrf_token() }}">
-                        <select name="type_id" class="form-control select2 select2-success" id="clientiteamtype" data-dropdown-css-class="select2-success">
-                          <option value="">--Item Type--</option>
-                          @foreach($clientiteamtype as $item)
-                            <option value="{{$item['id']}}">{{$item['name']}}</option>
-                          @endforeach
-                        </select>
-                    </div>
-                </div>
-              </div>
-            </div><!-- /.card-body -->
-          </div>
-          <!-- /.card -->
-
-          <!-- Custom tabs (Charts with tabs)-->
-          <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">
-                <i class="fa fa-info-circle" aria-hidden="true"></i>
                 Customer Information
               </h3>
             </div><!-- /.card-header -->
@@ -111,84 +84,84 @@
             </div><!-- /.card-body -->
           </div>
           <!-- /.card -->
-         
 
-          <!-- Types of Asset and services -->
-          <!-- <div class="card">
-            <div class="card-header">
-              <h3 class="card-title"><i aria-hidden="true" class="fa fa-info-circle"></i> Select Types of Asset and Services</h3>
+          <!-- Custom tabs (Charts with tabs)-->
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title">
+                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                     Select Types of Asset and Services
+                  </h3>
+                </div><!-- /.card-header -->
+                <div class="card-body">
+                  <div class="tab-content p-0">
+                    <div class="row mb-3">
+                        <div class="col-3">Asset</div>
+                        <div class="col-9">
+                            <input type="hidden" name="token" id="token" value="{{ csrf_token() }}">
+                            <select name="type_id" class="form-control select2 select2-success" id="clientiteamtype" data-dropdown-css-class="select2-success">
+                              <option value="">--Item Type--</option>
+                              @foreach($clientiteamtype as $item)
+                                <option value="{{$item['id']}}">{{$item['name']}}</option>
+                              @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-3"></div>
+                        <div class="col-9">
+                          <div class="input-group">
+                            <button type="button" id="WinReload" class="btn btn-success green-btn">Reset Filter</button>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                </div><!-- /.card-body -->
+              </div>
             </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group row" style="margin:10px 0px 10px 15px">
-                    <label for="inputPassword" class="col-sm-4 col-form-label">Item Type</label>
-                    <input type="hidden" name="token" id="token" value="{{ csrf_token() }}">
-                    <div class="col-sm-8">
-                    
-                      <select name="type_id" class="form-control select2 select2-danger" id="clientiteamtype" data-dropdown-css-class="select2-danger">
-                        <option value="">--Item Type--</option>
-                        @foreach($clientiteamtype as $item)
-                          <option value="{{$item['id']}}">{{$item['name']}}</option>
-                        @endforeach
-                      </select>
+            <div class="col-sm-6">
+              <!-- Select Date Range-->
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title">
+                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    Select Date Range
+                  </h3>
+                </div><!-- /.card-header -->
+                <div class="card-body">
+                  <div class="tab-content p-0">
+                    <div class="row mb-3">
+                        <div class="col-3">Date</div>
+                        <div class="col-9">
+                            <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">
+                                <i class="far fa-calendar-alt"></i>
+                              </span>
+                            </div>
+                            <input type="text" class="form-control float-right" id="reservation">
+                          </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-3"></div>
+                        <div class="col-9">
+                          <div class="input-group">
+                            <button type="button" id="SearchEstimation" class="btn btn-success green-btn mr-1">Search</button>
+                          </div>
+                        </div>
                     </div>
                   </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group row" style="margin:10px 15px 10px 0px">
-                    <label for="inputPassword" class="col-sm-4 col-form-label">Date Range</label>
-                    <div class="col-sm-8">
-                      <div class="input-group">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">
-                            <i class="far fa-calendar-alt"></i>
-                          </span>
-                        </div>
-                        <input type="text" class="form-control float-right" id="reservation">
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                </div><!-- /.card-body -->
               </div>
-          </div> -->
-          <!--/.Types of Assest and services -->
-
-          <!-- Select Date Range-->
-          <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">
-                <i class="fa fa-info-circle" aria-hidden="true"></i>
-                Select Date Range
-              </h3>
-            </div><!-- /.card-header -->
-            <div class="card-body">
-              <div class="tab-content p-0">
-                <div class="row mb-3">
-                    <div class="col-3">Date Range</div>
-                    <div class="col-9">
-                        <div class="input-group">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">
-                            <i class="far fa-calendar-alt"></i>
-                          </span>
-                        </div>
-                        <input type="text" class="form-control float-right" id="reservation">
-                      </div>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-3"></div>
-                    <div class="col-9">
-                      <div class="input-group">
-                        <button type="button" id="SearchEstimation" class="btn btn-success green-btn mr-1">Search</button>
-                        <button type="button" id="WinReload" class="btn btn-success green-btn">Reset Filter</button>
-                      </div>
-                    </div>
-                </div>
-              </div>
-            </div><!-- /.card-body -->
+              <!-- /. Select Date Range -->
+            </div>
           </div>
-          <!-- /. Select Date Range -->
+          <!-- /.card -->         
+
+          
 
           <!-- Display Selection of Asset -->
           <div class="card">

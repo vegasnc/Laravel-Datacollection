@@ -7,6 +7,12 @@ $(function () {
       $('#clientlist').val(null).trigger('change');
       $('#contactlist').val(null).trigger('change');
       $('#contactlocation').val(null).trigger('change');
+
+      sessionStorage.removeItem('select_territory_id');
+      sessionStorage.removeItem('select_location_id');
+      sessionStorage.removeItem('select_contact_id');
+      sessionStorage.removeItem('select_cl_id');
+
       var select_territory_id = e.params.data.id;
       sessionStorage.setItem(
         'select_territory_id', select_territory_id,
@@ -32,6 +38,9 @@ $(function () {
           cache: true
         }
      });
+
+     clientitemtype();
+     
     });
 
     $("#clientlist").select2({
@@ -85,6 +94,7 @@ $(function () {
           cache: true
         }
      });
+     clientitemtype();
     });
 
     $("#contactlist").select2({
@@ -138,6 +148,7 @@ $(function () {
           cache: true
         }
      });
+     clientitemtype();
     });
 
     $("#contactlocation").select2({
@@ -169,6 +180,7 @@ $(function () {
       sessionStorage.setItem(
         'select_location_id', select_location_id,
       )
+      clientitemtype();
     });
 
     $("#clientiteamtype").select2();
@@ -198,6 +210,7 @@ $(function () {
           d.select_location_id = sessionStorage.getItem('select_location_id');
           d.select_contact_id = sessionStorage.getItem('select_contact_id');
           d.select_territory_id = sessionStorage.getItem('select_territory_id');
+          d.select_item_type_id = sessionStorage.getItem('select_item_type_id');
           d._token = $('#token').val();
         }
       },
@@ -230,6 +243,7 @@ $(function () {
       myMap1(startdate,enddate);
 
       barchart(startdate,enddate);
+      sessionStorage.removeItem('select_item_type_id');
     });  
     /*END Load Estimation propsal in datatable*/
     $("#WinReload").on("click", function() {
@@ -305,6 +319,7 @@ function myMap1(startdate,enddate) {
   var select_location_id = sessionStorage.getItem('select_location_id');
   var select_contact_id = sessionStorage.getItem('select_contact_id');
   var select_territory_id = sessionStorage.getItem('select_territory_id');
+  var select_item_type_id = sessionStorage.getItem('select_item_type_id');
 
   var _token = $('#token').val();
   $.ajax({
@@ -319,7 +334,8 @@ function myMap1(startdate,enddate) {
         select_territory_id: select_territory_id,
         select_cl_id: select_cl_id,
         select_location_id: select_location_id,
-        select_contact_id: select_contact_id, 
+        select_contact_id: select_contact_id,
+        select_item_type_id: select_item_type_id, 
       },
       success: function(markers7) {
           for (i = 0; i < markers7.length; i++) {
@@ -327,13 +343,19 @@ function myMap1(startdate,enddate) {
             var myLatlng7 = new google.maps.LatLng(data.lat, data.lng);
             lat_lng.push(myLatlng7);
             var marker7 = new google.maps.Marker({
-                    position: myLatlng7,
-                    map: map7,
-                    title: data.title,
-                   animation: google.maps.Animation.DROP
+                  position: myLatlng7,
+                  map: map7,
+                  title: data.title,
+                  animation: google.maps.Animation.DROP
             });
             latlngbounds.extend(marker7.position);
         }
+        map7.fitBounds(latlngbounds);
+        //(optional) restore the zoom level after the map is done scaling
+        var listener = google.maps.event.addListener(map7, "idle", function () {
+            map7.setZoom(3);
+            google.maps.event.removeListener(listener);
+        });
       }
   });
 }
@@ -432,3 +454,33 @@ function barchart(startdate,enddate){
   });
 }
 /*END on selct ItemType show data in chart*/
+
+function clientitemtype(){
+  $("#clientiteamtype").select2({
+  ajax: {
+      url: "/v1/clientiteamtype",
+      type: "POST",
+      dataType: 'json',
+      delay: 250,
+      data: function (params) {
+         return {
+            searchTerm: params.term, // search term
+            startdate: $("#reservation").data('daterangepicker').startDate.format('YYYY-MM-DD'),
+            enddate: $("#reservation").data('daterangepicker').endDate.format('YYYY-MM-DD'),
+            select_cl_id: sessionStorage.getItem('select_cl_id'),
+            select_location_id: sessionStorage.getItem('select_location_id'),
+            select_contact_id: sessionStorage.getItem('select_contact_id'),
+            select_territory_id: sessionStorage.getItem('select_territory_id'),
+            select_item_type_id: sessionStorage.getItem('select_item_type_id'),
+            _token: $('#token').val()
+         };
+      },
+      processResults: function (response) {
+         return {
+            results: response
+         };
+      },
+      cache: true
+    }
+ });
+}

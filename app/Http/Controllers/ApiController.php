@@ -140,6 +140,43 @@ class ApiController extends Controller
         }
         return response()->json($response);
     }
+    //Fetch ItemType information 
+    public function clientiteamtype(Request $request)
+    {
+        $data = $request->all();
+        $select_cl_id = $data['select_cl_id'];
+        $select_location_id = $data['select_location_id'];
+        $select_contact_id = $data['select_contact_id'];
+        $startdate = $data['startdate'];
+        $enddate = $data['enddate'];
+        $territory_id = $data['select_territory_id'];
+        $item_type_id = $data['select_item_type_id'];
+
+        $url = env('API_URL_API').'API/clientiteamtypeAjax.php?territory_id='.$territory_id.'&client_id='.$select_cl_id.'&location_id='.$select_location_id.'&contact_id='.$select_contact_id.'&item_type_id='.$item_type_id.'&start_date='.$startdate.'&end_date='.$enddate;    
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => $url,
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => '',
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 0,
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => 'GET',
+        ));
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+        $response = json_decode($response,true);
+        foreach($response as $user){
+           $response[] = array(
+              "id" => $user['id'],
+              "text" => $user['name']
+           );
+        }
+        return response()->json($response);
+    }
     //Get Estimate Propsal
     public function getEstimateProposal(Request $request){
         $data = $request->all();
@@ -149,9 +186,9 @@ class ApiController extends Controller
         $startdate = $data['startdate'];
         $enddate = $data['enddate'];
         $territory_id = $data['select_territory_id'];
+        $item_type_id = $data['select_item_type_id'];
 
-        //$url = env('API_URL_API').'/API/listestimation.php?client_id=28585&location_id=123580&contact_id=54927&start_date=2020-05-14&end_date=2022-06-14';
-        $url = env('API_URL_API').'API/listestimation.php?territory_id='.$territory_id.'&client_id='.$select_cl_id.'&location_id='.$select_location_id.'&contact_id='.$select_contact_id.'&start_date='.$startdate.'&end_date='.$enddate;    
+        $url = env('API_URL_API').'API/listestimation.php?territory_id='.$territory_id.'&client_id='.$select_cl_id.'&location_id='.$select_location_id.'&contact_id='.$select_contact_id.'&item_type_id='.$item_type_id.'&start_date='.$startdate.'&end_date='.$enddate;    
 
         $curl = curl_init();
 
@@ -182,10 +219,9 @@ class ApiController extends Controller
         $startdate = $data['startdate'];
         $enddate = $data['enddate'];
         $territory_id = $data['select_territory_id'];
+        $item_type_id = $data['select_item_type_id'];
         
-        //$url = env('API_URL_API').'/API/listestimation.php?client_id=28585&location_id=123580&contact_id=54927&start_date=2020-05-14&end_date=2022-06-14';
-         
-        $url = env('API_URL_API').'API/listestimation.php?territory_id='.$territory_id.'&client_id='.$select_cl_id.'&location_id='.$select_location_id.'&contact_id='.$select_contact_id.'&start_date='.$startdate.'&end_date='.$enddate;    
+        $url = env('API_URL_API').'API/listestimation.php?territory_id='.$territory_id.'&client_id='.$select_cl_id.'&location_id='.$select_location_id.'&contact_id='.$select_contact_id.'&item_type_id='.$item_type_id.'&start_date='.$startdate.'&end_date='.$enddate;    
 
         $curl = curl_init();
 
@@ -214,14 +250,14 @@ class ApiController extends Controller
         $select_contact_id = $data['select_contact_id'];
         $startdate = $data['startdate'];
         $enddate = $data['enddate'];
-        $select_item_type_id = $data['select_item_type_id'];
+        $item_type_id = $data['select_item_type_id'];
         $territory_id = $data['select_territory_id'];
         
 
         
         //$url = env('API_URL_API').'/API/listestimation.php?client_id=28585&location_id=123580&contact_id=54927&start_date=2020-05-14&end_date=2022-06-14';
         
-        $url = env('API_URL_API').'API/listestimationcount.php?territory_id='.$territory_id.'&client_id='.$select_cl_id.'&location_id='.$select_location_id.'&contact_id='.$select_contact_id.'&select_item_type_id='.$select_item_type_id.'&start_date='.$startdate.'&end_date='.$enddate;
+        $url = env('API_URL_API').'API/listestimationcount.php?territory_id='.$territory_id.'&client_id='.$select_cl_id.'&location_id='.$select_location_id.'&contact_id='.$select_contact_id.'&item_type_id='.$item_type_id.'&start_date='.$startdate.'&end_date='.$enddate;
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
