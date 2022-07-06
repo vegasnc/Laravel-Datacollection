@@ -161,8 +161,6 @@
           </div>
           <!-- /.card -->         
 
-          
-
           <!-- Display Selection of Asset -->
           <div class="card">
             <div class="card-header">
@@ -192,6 +190,56 @@
               <!-- /.card-body -->
           </div>
           <!-- /.card -->
+
+          <!-- Display live number-->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">
+                <i class="fa fa-info-circle" aria-hidden="true"></i>
+                Remove - A - Meter
+              </h3>
+            </div><!-- /.card-header -->
+            <div class="card-body">
+              <div class="form-group row text-center">
+                <div class="col-sm-12">
+                  <span class="col-sm-2">Live Number Data</span>
+                </div>
+              </div>
+              <div class="form-group row text-center">
+                <div class="col-sm-12">
+                  <label class="col-sm-8 col-form-label col-form-label-lg btn btn-success green-btn font-weight-normal">15 pairs of shoes sold</label>
+                </div>
+              </div>
+              <div class="form-group row text-center">
+                <div class="col-sm-12">
+                  <span class="col-sm-2">Recent Service Photos</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="thumbnail">
+                    <img src="{{ asset('dist/img/default-150x150.png') }}" alt="Lights" style="width:100%">
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="thumbnail">
+                    <img src="{{ asset('dist/img/default-150x150.png') }}" alt="Nature" style="width:100%">
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="thumbnail">
+                    <img src="{{ asset('dist/img/default-150x150.png') }}" alt="Fjords" style="width:100%">
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="thumbnail">
+                    <img src="{{ asset('dist/img/default-150x150.png') }}" alt="Fjords" style="width:100%">
+                  </div>
+                </div>
+              </div>
+            </div><!-- /.card-body -->
+          </div>
+          <!-- /.Live number -->
         </section>
         <!-- /.Left col -->
         <section class="col-lg-5 connectedSortable">
