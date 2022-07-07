@@ -34,6 +34,10 @@ Route::group(['prefix' => 'v1'], function () {
 
     Route::POST('/getEstimateProposal', 'App\Http\Controllers\ApiController@getEstimateProposal')->name('getEstimateProposal');
 
+    Route::POST('/listmeter', 'App\Http\Controllers\ApiController@listmeter')->name('listmeter');
+    Route::POST('/listmetercount', 'App\Http\Controllers\ApiController@listmetercount')->name('listmetercount');
+    
+    
     Route::POST('/getGoogleMap', 'App\Http\Controllers\ApiController@getGoogleMap')->name('getGoogleMap');
 
     Route::POST('/getBarChart', 'App\Http\Controllers\ApiController@getBarChart')->name('getBarChart');

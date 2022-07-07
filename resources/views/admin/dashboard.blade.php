@@ -30,7 +30,7 @@
         <!-- Left col -->
         <section class="col-lg-7 connectedSortable">
 
-          <!-- Custom tabs (Charts with tabs)-->
+          <!-- Customer Information-->
           <div class="card">
             <div class="card-header">
               <h3 class="card-title">
@@ -83,9 +83,9 @@
               </div>
             </div><!-- /.card-body -->
           </div>
-          <!-- /.card -->
+          <!-- /.Customer Information -->
 
-          <!-- Custom tabs (Charts with tabs)-->
+          <!-- Select Type of assest and Date range-->
           <div class="row">
             <div class="col-sm-6">
               <div class="card">
@@ -159,7 +159,7 @@
               <!-- /. Select Date Range -->
             </div>
           </div>
-          <!-- /.card -->         
+          <!-- /.Select Type of assest and Date range -->         
 
           <!-- Display Selection of Asset -->
           <div class="card">
@@ -189,9 +189,9 @@
               </div>
               <!-- /.card-body -->
           </div>
-          <!-- /.card -->
+          <!-- /.Display Selection of Asset -->
 
-          <!-- Display live number-->
+          <!-- Remove A - meter -->
           <div class="card">
             <div class="card-header">
               <h3 class="card-title">
@@ -205,9 +205,11 @@
                   <span class="col-sm-2">Live Number Data</span>
                 </div>
               </div>
-              <div class="form-group row text-center">
-                <div class="col-sm-12">
-                  <label class="col-sm-8 col-form-label col-form-label-lg btn btn-success green-btn font-weight-normal">15 pairs of shoes sold</label>
+              <div id="livenocount">
+                <div class="form-group row text-center">
+                  <div class="col-sm-12">
+                    <label class="col-sm-8 col-form-label col-form-label-lg btn btn-success green-btn font-weight-normal">15 pairs of shoes sold</label>
+                  </div>
                 </div>
               </div>
               <div class="form-group row text-center">
@@ -215,31 +217,33 @@
                   <span class="col-sm-2">Recent Service Photos</span>
                 </div>
               </div>
-              <div class="row">
-                <div class="col-md-3">
-                  <div class="thumbnail">
-                    <img src="{{ asset('dist/img/default-150x150.png') }}" alt="Lights" style="width:100%">
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="thumbnail">
-                    <img src="{{ asset('dist/img/default-150x150.png') }}" alt="Nature" style="width:100%">
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="thumbnail">
-                    <img src="{{ asset('dist/img/default-150x150.png') }}" alt="Fjords" style="width:100%">
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="thumbnail">
-                    <img src="{{ asset('dist/img/default-150x150.png') }}" alt="Fjords" style="width:100%">
-                  </div>
+              <div id="imagesdata">
+                <div class="row">
+                    <div class="col-md-3">
+                      <div class="thumbnail">
+                        <img src="{{ asset('dist/img/default-150x150.png') }}" alt="Lights" style="width:100%">
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="thumbnail">
+                        <img src="{{ asset('dist/img/default-150x150.png') }}" alt="Nature" style="width:100%">
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="thumbnail">
+                        <img src="{{ asset('dist/img/default-150x150.png') }}" alt="Fjords" style="width:100%">
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="thumbnail">
+                        <img src="{{ asset('dist/img/default-150x150.png') }}" alt="Fjords" style="width:100%">
+                      </div>
+                    </div>
                 </div>
               </div>
             </div><!-- /.card-body -->
           </div>
-          <!-- /.Live number -->
+          <!-- /.Remove A - meter -->
         </section>
         <!-- /.Left col -->
         <section class="col-lg-5 connectedSortable">

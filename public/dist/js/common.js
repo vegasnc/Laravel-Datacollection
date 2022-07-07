@@ -240,8 +240,10 @@ $(function () {
       table.draw();
       var startdate = $("#reservation").data('daterangepicker').startDate.format('YYYY-MM-DD');
       var enddate = $("#reservation").data('daterangepicker').endDate.format('YYYY-MM-DD');
+      
+      getlistmetercount();
+      getlistmeterimages();
       myMap1(startdate,enddate);
-
       barchart(startdate,enddate);
       sessionStorage.removeItem('select_item_type_id');
     });  
@@ -338,6 +340,7 @@ function myMap1(startdate,enddate) {
         select_item_type_id: select_item_type_id, 
       },
       success: function(markers7) {
+        var countProposal = markers7.length;
           for (i = 0; i < markers7.length; i++) {
             var data = markers7[i]
             var myLatlng7 = new google.maps.LatLng(data.lat, data.lng);
@@ -483,4 +486,92 @@ function clientitemtype(){
       cache: true
     }
  });
+}
+
+function getlistmeterimages() {
+  var _token = $('#token').val();
+  var select_cl_id = sessionStorage.getItem('select_cl_id');
+  var select_location_id = sessionStorage.getItem('select_location_id');
+  var select_contact_id = sessionStorage.getItem('select_contact_id');
+  var select_territory_id = sessionStorage.getItem('select_territory_id');
+  var select_item_type_id = sessionStorage.getItem('select_item_type_id');
+  var startdate = $("#reservation").data('daterangepicker').startDate.format('YYYY-MM-DD');
+  var enddate = $("#reservation").data('daterangepicker').endDate.format('YYYY-MM-DD');
+
+  $.ajax({
+      url: "/v1/listmeter",
+      type: "POST",
+      async: false,
+      data: { 
+        _token: _token, 
+        select_cl_id: select_cl_id,
+        select_location_id: select_location_id,
+        select_contact_id: select_contact_id,
+        select_territory_id: select_territory_id,
+        select_item_type_id: select_item_type_id,
+        startdate: startdate, 
+        enddate: enddate 
+      },
+      dataType: "JSON",
+      success: function(data) {
+
+          var html="";
+          html += '<div class="row">';
+          $.each(data, function(i, item) {
+              if(item.filename != null){
+                html += '<div class="col-md-3">';
+                  html += '<div class="thumbnail">';
+                    html += "<img class='img-thumbnail' src='https://clickoff-qa.goodbyegraffiti.com/"+item.filename+"' alt='Lights' style='width:100%;height:200px;'>";
+                  html += '</div>';
+                html += '</div>';
+              }
+          });
+          html += '</div>';
+          $("#imagesdata").html(html);
+          
+      }
+  });
+}
+
+function getlistmetercount() {
+  var _token = $('#token').val();
+  var select_cl_id = sessionStorage.getItem('select_cl_id');
+  var select_location_id = sessionStorage.getItem('select_location_id');
+  var select_contact_id = sessionStorage.getItem('select_contact_id');
+  var select_territory_id = sessionStorage.getItem('select_territory_id');
+  var select_item_type_id = sessionStorage.getItem('select_item_type_id');
+  var startdate = $("#reservation").data('daterangepicker').startDate.format('YYYY-MM-DD');
+  var enddate = $("#reservation").data('daterangepicker').endDate.format('YYYY-MM-DD');
+
+  $.ajax({
+      url: "/v1/listmetercount",
+      type: "POST",
+      async: false,
+      data: { 
+        _token: _token, 
+        select_cl_id: select_cl_id,
+        select_location_id: select_location_id,
+        select_contact_id: select_contact_id,
+        select_territory_id: select_territory_id,
+        select_item_type_id: select_item_type_id,
+        startdate: startdate, 
+        enddate: enddate 
+      },
+      dataType: "JSON",
+      success: function(data) {
+
+          var html="";
+          $.each(data, function(i, item) {
+              if(item.name != null){
+                html += '<div class="form-group row text-center">';
+                  html += '<div class="col-sm-12">';
+                    html += '<label class="col-sm-8 col-form-label col-form-label-lg btn btn-success green-btn font-weight-normal">'+item.countitemtype+' pairs of '+item.name+' sold</label>';
+                  html += '</div>';
+                html += '</div>';
+              }
+          });
+          $("#livenocount").html(html);
+          
+      }
+  });
 }
