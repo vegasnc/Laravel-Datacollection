@@ -567,7 +567,7 @@ function getlistmetercount() {
               if(item.name != null){
                 html += '<div class="form-group row text-center">';
                   html += '<div class="col-sm-12">';
-                    html += '<label class="col-sm-8 col-form-label col-form-label-lg btn btn-success green-btn font-weight-normal">'+item.countitemtype+' pairs of '+item.name+' sold</label>';
+                    html += '<label class="col-sm-8 col-form-label col-form-label-lg btn btn-success green-btn font-weight-normal">'+item.countitemtype +' '+ item.name +'</label>';
                   html += '</div>';
                 html += '</div>';
               }
