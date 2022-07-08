@@ -200,7 +200,7 @@
               </h3>
             </div><!-- /.card-header -->
             <div class="card-body">
-              <div class="form-group row text-center">
+              <div class="form-group row text-center" id="livenumer" style="display:none;">
                 <div class="col-sm-12">
                   <span class="col-sm-2">Live Number Data</span>
                 </div>
@@ -208,16 +208,16 @@
               <div id="livenocount">
                 <div class="form-group row text-center">
                   <div class="col-sm-12">
-                    <label class="col-sm-8 col-form-label col-form-label-lg btn btn-success green-btn font-weight-normal">15 pairs of shoes sold</label>
+                    <label class="col-sm-8 col-form-label col-form-label-lg btn btn-success green-btn font-weight-normal">No record found</label>
                   </div>
                 </div>
               </div>
-              <div class="form-group row text-center">
+              <div class="form-group row text-center" id="recentphoto" style="display:none;">
                 <div class="col-sm-12">
                   <span class="col-sm-2">Recent Service Photos</span>
                 </div>
               </div>
-              <div id="imagesdata">
+              <div id="imagesdata" style="display:none;">
                 <div class="row">
                     <div class="col-md-3">
                       <div class="thumbnail">

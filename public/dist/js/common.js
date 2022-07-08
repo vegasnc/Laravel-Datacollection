@@ -356,7 +356,7 @@ function myMap1(startdate,enddate) {
         map7.fitBounds(latlngbounds);
         //(optional) restore the zoom level after the map is done scaling
         var listener = google.maps.event.addListener(map7, "idle", function () {
-            map7.setZoom(3);
+            map7.setZoom(10);
             google.maps.event.removeListener(listener);
         });
       }
@@ -514,7 +514,9 @@ function getlistmeterimages() {
       },
       dataType: "JSON",
       success: function(data) {
-
+          $("#livenumer").show();
+          $("#recentphoto").show();
+          $("#imagesdata").show();
           var html="";
           html += '<div class="row">';
           $.each(data, function(i, item) {
