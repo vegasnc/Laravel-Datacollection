@@ -523,7 +523,7 @@ function getlistmeterimages() {
               if(item.filename != null){
                 html += '<div class="col-md-3">';
                   html += '<div class="thumbnail">';
-                    html += "<img class='img-thumbnail' src='https://clickoff-qa.goodbyegraffiti.com/"+item.filename+"' alt='Lights' style='width:100%;height:200px;'>";
+                    html += "<img class='img-thumbnail' src='https://clickoff.goodbyegraffiti.com/"+item.filename+"' alt='Lights' style='width:100%;height:200px;'>";
                   html += '</div>';
                 html += '</div>';
               }
