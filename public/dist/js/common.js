@@ -433,7 +433,7 @@ function barchart(startdate,enddate){
             scales: {
               yAxes: [{
                 ticks: {
-                  max: 25,
+                  max: 100,
                 },
                 stacked: true,
               }]
