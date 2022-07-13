@@ -428,17 +428,7 @@ function barchart(startdate,enddate){
 
         barGraph = new Chart(ctx, {
           type: 'bar',
-          data: chartdata,
-          options: {
-            scales: {
-              yAxes: [{
-                ticks: {
-                  max: 100,
-                },
-                stacked: true,
-              }]
-            }
-          }
+          data: chartdata
         });
       }
   });
