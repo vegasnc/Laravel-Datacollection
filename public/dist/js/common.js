@@ -237,15 +237,18 @@ $(function () {
       barchart(startdate,enddate);
     });*/
     $("#SearchEstimation").on("click", function() {
+      
       table.draw();
       var startdate = $("#reservation").data('daterangepicker').startDate.format('YYYY-MM-DD');
       var enddate = $("#reservation").data('daterangepicker').endDate.format('YYYY-MM-DD');
-      
+      $("#spinner-div").show();
       getlistmetercount();
       getlistmeterimages();
       myMap1(startdate,enddate);
       barchart(startdate,enddate);
       sessionStorage.removeItem('select_item_type_id');
+
+      $("#spinner-div").hide();
     });  
     /*END Load Estimation propsal in datatable*/
     $("#WinReload").on("click", function() {
@@ -365,6 +368,7 @@ function myMap1(startdate,enddate) {
 /*END On Select ItemType load map markers*/
 
 /*START on selct ItemType show data in chart*/
+var barGraph;
 function barchart(startdate,enddate){
   var startdate = startdate;
   var enddate = enddate;
@@ -393,66 +397,49 @@ function barchart(startdate,enddate){
       success: function(data) {
         $("#barChart").hide();
         $("#barChartOnAjax").show();
-        /*var monthno = [];
+        
+        data = JSON.parse(data);
+        var monthno = [];
         var countno = [];
 
-        for (var i in data) {
+        $.each(data, function(i, item) {
             monthno.push(data[i].monthno);
             countno.push(data[i].countno);
-        }
+        });
 
         var chartdata = {
-            labels: monthno,
-            datasets: [
-                {
-                    label               : 'Selected Asset',
-                    backgroundColor     : 'rgba(60,141,188,0.9)',
-                    borderColor         : 'rgba(60,141,188,0.8)',
-                    pointRadius          : false,
-                    pointColor          : '#3b8bba',
-                    pointStrokeColor    : 'rgba(60,141,188,1)',
-                    pointHighlightFill  : '#fff',
-                    pointHighlightStroke: 'rgba(60,141,188,1)',
-                    data: countno
-                }
-            ]
+          labels: monthno,
+          datasets : [
+            {
+              label: 'Selected Asset No of Count Per Month',
+              backgroundColor: '#66bd9d',
+              borderColor: '#66bd9d',
+              hoverBackgroundColor: '#10523a',
+              hoverBorderColor: '#10523a',
+              data: countno
+            }
+          ]
         };
+        if (barGraph) {
+          barGraph.destroy();
+        }
 
-        var graphTarget = $("#barChart");
+        var ctx = $("#barChartOnAjax");
 
-        var barGraph = new Chart(graphTarget, {
-            type: 'bar',
-            data: chartdata
-        });*/
-        data = JSON.parse(data);
-          var monthno = [];
-          var countno = [];
-
-          $.each(data, function(i, item) {
-              monthno.push(data[i].monthno);
-              countno.push(data[i].countno);
-          });
-
-          var chartdata = {
-            labels: monthno,
-            datasets : [
-              {
-                label: 'Selected Asset No of Count Per Month',
-                backgroundColor: '#66bd9d',
-                borderColor: '#66bd9d',
-                hoverBackgroundColor: '#10523a',
-                hoverBorderColor: '#10523a',
-                data: countno
-              }
-            ]
-          };
-
-          var ctx = $("#barChartOnAjax");
-
-          var barGraph = new Chart(ctx, {
-            type: 'bar',
-            data: chartdata
-          });
+        barGraph = new Chart(ctx, {
+          type: 'bar',
+          data: chartdata,
+          options: {
+            scales: {
+              yAxes: [{
+                ticks: {
+                  max: 25,
+                },
+                stacked: true,
+              }]
+            }
+          }
+        });
       }
   });
 }
