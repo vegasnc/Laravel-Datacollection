@@ -26,7 +26,7 @@ class HomeController extends Controller
     {
         $curl = curl_init();
         curl_setopt_array($curl, array(
-          CURLOPT_URL => env('API_URL_API').'API/clientiteamtype.php',
+          CURLOPT_URL => env('API_URL_API').'API/clientAsset.php',
           CURLOPT_RETURNTRANSFER => true,
           CURLOPT_ENCODING => '',
           CURLOPT_MAXREDIRS => 10,
@@ -38,7 +38,6 @@ class HomeController extends Controller
         $response = curl_exec($curl);
         curl_close($curl);
         $clientiteamtype = json_decode($response,true);
-
         $clientterritory = json_decode(file_get_contents(env('API_URL_API').'API/clientterritory.php'), true);
         return view('admin.dashboard',compact('clientiteamtype','clientterritory'));
     }

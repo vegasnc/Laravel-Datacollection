@@ -104,7 +104,7 @@
                             <select name="type_id" class="form-control select2 select2-success" id="clientiteamtype" data-dropdown-css-class="select2-success">
                               <option value="">--Item Type--</option>
                               @foreach($clientiteamtype as $item)
-                                <option value="{{$item['id']}}">{{$item['name']}}</option>
+                                <option value="{{$item['id']}}">{{$item['value']}}</option>
                               @endforeach
                             </select>
                         </div>
