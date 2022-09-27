@@ -54,7 +54,9 @@ class ApiController extends Controller
             }
             $value_output = stripslashes( $user[ "company" ]);
             $text .= substr($value_output, 0, 50) . (strlen($value_output) > 50 ? "..." : "");
-                             
+            if ($user['setup_id'] == 11) {
+                $text .= " (Corporate)";
+            }                  
            $response[] = array(
               "id" => $user['id'],
               "text" => $text
