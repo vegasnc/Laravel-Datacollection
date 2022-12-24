@@ -37,6 +37,11 @@ Route::group(['prefix' => 'v1'], function () {
     Route::POST('/listmeter', 'App\Http\Controllers\ApiController@listmeter')->name('listmeter');
     Route::POST('/listmetercount', 'App\Http\Controllers\ApiController@listmetercount')->name('listmetercount');
     
+    Route::POST('/getTotalRevenue', 'App\Http\Controllers\ApiController@getTotalRevenue')->name('getTotalRevenue');
+    Route::POST('/getTotalAsset', 'App\Http\Controllers\ApiController@getTotalAsset')->name('getTotalAsset');
+
+    Route::POST('/getTotalRevenueT', 'App\Http\Controllers\ApiController@getTotalRevenueT')->name('getTotalRevenueT');
+    Route::POST('/getTotalAssetT', 'App\Http\Controllers\ApiController@getTotalAssetT')->name('getTotalAssetT');
     
     Route::POST('/getGoogleMap', 'App\Http\Controllers\ApiController@getGoogleMap')->name('getGoogleMap');
 

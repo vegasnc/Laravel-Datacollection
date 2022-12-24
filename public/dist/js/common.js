@@ -94,6 +94,8 @@ $(function () {
           cache: true
         }
      });
+     getTotalRevenue();
+     getTotalAsset();
      clientitemtype();
     });
 
@@ -246,6 +248,8 @@ $(function () {
       getlistmeterimages();
       myMap1(startdate,enddate);
       barchart(startdate,enddate);
+      getTotalRevenueT();
+      getTotalAssetT();
       sessionStorage.removeItem('select_item_type_id');
 
       $("#spinner-div").hide();
@@ -551,6 +555,117 @@ function getlistmetercount() {
           });
           $("#livenocount").html(html);
           
+      }
+  });
+}
+
+function getTotalRevenue(){
+  var _token = $('#token').val();
+  var select_cl_id = sessionStorage.getItem('select_cl_id');
+  var select_territory_id = sessionStorage.getItem('select_territory_id');
+  var startdate = $("#reservation").data('daterangepicker').startDate.format('YYYY-MM-DD');
+  var enddate = $("#reservation").data('daterangepicker').endDate.format('YYYY-MM-DD');
+
+  $.ajax({
+      url: "/v1/getTotalRevenue",
+      type: "POST",
+      async: false,
+      data: { 
+        _token: _token, 
+        select_territory_id:select_territory_id,
+        clientid: select_cl_id,
+        startdate: startdate, 
+        enddate: enddate 
+      },
+      dataType: "JSON",
+      success: function(data) {
+        $("#revenue").html(data[0].totalrevenue);
+        $("#revenue_btm").html(data[0].totalrevenue);
+      }
+  });
+}
+function getTotalAsset(){
+  var _token = $('#token').val();
+  var select_cl_id = sessionStorage.getItem('select_cl_id');
+  var select_territory_id = sessionStorage.getItem('select_territory_id');
+  var startdate = $("#reservation").data('daterangepicker').startDate.format('YYYY-MM-DD');
+  var enddate = $("#reservation").data('daterangepicker').endDate.format('YYYY-MM-DD');
+
+  $.ajax({
+      url: "/v1/getTotalAsset",
+      type: "POST",
+      async: false,
+      data: { 
+        _token: _token, 
+        select_territory_id:select_territory_id,
+        clientid: select_cl_id,
+        startdate: startdate, 
+        enddate: enddate 
+      },
+      dataType: "JSON",
+      success: function(data) {
+        $("#assets").html(data[0].totalasset);
+        $("#assets_btm").html(data[0].totalasset)
+      }
+  });
+}
+function getTotalRevenueT(){
+  var _token = $('#token').val();
+  var select_cl_id = sessionStorage.getItem('select_cl_id');
+  var select_location_id = sessionStorage.getItem('select_location_id');
+  var select_contact_id = sessionStorage.getItem('select_contact_id');
+  var select_territory_id = sessionStorage.getItem('select_territory_id');
+  var select_item_type_id = sessionStorage.getItem('select_item_type_id');
+  var startdate = $("#reservation").data('daterangepicker').startDate.format('YYYY-MM-DD');
+  var enddate = $("#reservation").data('daterangepicker').endDate.format('YYYY-MM-DD');
+
+  $.ajax({
+      url: "/v1/getTotalRevenueT",
+      type: "POST",
+      async: false,
+      data: { 
+        _token: _token, 
+        select_cl_id: select_cl_id,
+        select_location_id: select_location_id,
+        select_contact_id: select_contact_id,
+        select_territory_id: select_territory_id,
+        select_item_type_id: select_item_type_id,
+        startdate: startdate, 
+        enddate: enddate 
+      },
+      dataType: "JSON",
+      success: function(data) {
+        $("#revenue_btm").html(data[0].totalrevenue);
+      }
+  });
+}
+function getTotalAssetT(){
+  var _token = $('#token').val();
+  var select_cl_id = sessionStorage.getItem('select_cl_id');
+  var select_location_id = sessionStorage.getItem('select_location_id');
+  var select_contact_id = sessionStorage.getItem('select_contact_id');
+  var select_territory_id = sessionStorage.getItem('select_territory_id');
+  var select_item_type_id = sessionStorage.getItem('select_item_type_id');
+  var startdate = $("#reservation").data('daterangepicker').startDate.format('YYYY-MM-DD');
+  var enddate = $("#reservation").data('daterangepicker').endDate.format('YYYY-MM-DD');
+
+  $.ajax({
+      url: "/v1/getTotalAssetT",
+      type: "POST",
+      async: false,
+      data: { 
+        _token: _token, 
+        select_cl_id: select_cl_id,
+        select_location_id: select_location_id,
+        select_contact_id: select_contact_id,
+        select_territory_id: select_territory_id,
+        select_item_type_id: select_item_type_id,
+        startdate: startdate, 
+        enddate: enddate 
+      },
+      dataType: "JSON",
+      success: function(data) {
+        $("#assets_btm").html(data[0].totalasset)
       }
   });
 }

@@ -190,7 +190,6 @@ class ApiController extends Controller
         $enddate = $data['enddate'];
         $territory_id = $data['select_territory_id'];
         $item_type_id = $data['select_item_type_id'];
-
         $url = env('API_URL_API').'API/listestimation.php?territory_id='.$territory_id.'&client_id='.$select_cl_id.'&location_id='.$select_location_id.'&contact_id='.$select_contact_id.'&item_type_id='.$item_type_id.'&start_date='.$startdate.'&end_date='.$enddate;    
         $curl = curl_init();
         curl_setopt_array($curl, array(
@@ -255,7 +254,6 @@ class ApiController extends Controller
 
         $url = env('API_URL_API').'API/listmetercount.php?territory_id='.$territory_id.'&client_id='.$select_cl_id.'&location_id='.$select_location_id.'&contact_id='.$select_contact_id.'&item_type_id='.$item_type_id.'&start_date='.$startdate.'&end_date='.$enddate;    
         $curl = curl_init();
-
         curl_setopt_array($curl, array(
           CURLOPT_URL => $url,
           CURLOPT_RETURNTRANSFER => true,
@@ -364,4 +362,104 @@ class ApiController extends Controller
         $data = json_encode($response,true);
         return response()->json($data);
     } 
+
+    //Get Total Revenue
+    public function getTotalRevenue(Request $request){
+        $data = $request->all();
+        $territory_id = $data['select_territory_id'];
+        $clientid = $data['clientid'];
+        $url=env('API_URL_API').'API/totalRevenue.php?client_id='.$clientid.'&territory_id='.$territory_id;
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => $url,
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => '',
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 0,
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => 'GET',
+        ));
+        $response = curl_exec($curl);
+        curl_close($curl);
+        $response = json_decode($response,true);
+        return response()->json($response);
+    }
+    //Get Total Assets
+    public function getTotalAsset(Request $request){
+        $data = $request->all();
+        $territory_id = $data['select_territory_id'];
+        $clientid = $data['clientid'];
+        $url = env('API_URL_API').'API/totalassetscount.php?client_id='.$clientid.'&territory_id='.$territory_id;
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => $url,
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => '',
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 0,
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => 'GET',
+        ));
+        $response = curl_exec($curl);
+        curl_close($curl);
+        $response = json_decode($response,true);
+        return response()->json($response);
+    }
+
+    //Get Total Revenue Specific Asset
+    public function getTotalRevenueT(Request $request){
+        $data = $request->all();
+        $select_cl_id = $data['select_cl_id'];
+        $select_location_id = $data['select_location_id'];
+        $select_contact_id = $data['select_contact_id'];
+        $startdate = $data['startdate'];
+        $enddate = $data['enddate'];
+        $item_type_id = $data['select_item_type_id'];
+        $territory_id = $data['select_territory_id'];
+        $url = env('API_URL_API').'API/totalRevenueT.php?territory_id='.$territory_id.'&client_id='.$select_cl_id.'&location_id='.$select_location_id.'&contact_id='.$select_contact_id.'&item_type_id='.$item_type_id.'&start_date='.$startdate.'&end_date='.$enddate;
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => $url,
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => '',
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 0,
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => 'GET',
+        ));
+        $response = curl_exec($curl);
+        curl_close($curl);
+        $response = json_decode($response,true);
+        return response()->json($response);
+    }
+    //Get Total Assets specific Asset
+    public function getTotalAssetT(Request $request){
+        $data = $request->all();
+        $select_cl_id = $data['select_cl_id'];
+        $select_location_id = $data['select_location_id'];
+        $select_contact_id = $data['select_contact_id'];
+        $startdate = $data['startdate'];
+        $enddate = $data['enddate'];
+        $item_type_id = $data['select_item_type_id'];
+        $territory_id = $data['select_territory_id'];
+        $url = env('API_URL_API').'API/totalassetscountT.php?territory_id='.$territory_id.'&client_id='.$select_cl_id.'&location_id='.$select_location_id.'&contact_id='.$select_contact_id.'&item_type_id='.$item_type_id.'&start_date='.$startdate.'&end_date='.$enddate;
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => $url,
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => '',
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 0,
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => 'GET',
+        ));
+        $response = curl_exec($curl);
+        curl_close($curl);
+        $response = json_decode($response,true);
+        return response()->json($response);
+    }
 }

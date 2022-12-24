@@ -161,6 +161,24 @@
           </div>
           <!-- /.Select Type of assest and Date range -->         
 
+          <!-- No of Asset -->
+          <div class="card">
+            <!-- /.No of Asset -->
+            <!-- /.card-header -->
+              <div class="card-body">
+                <div class="form-group row text-center">
+                  <div class="col-sm-6">
+                  <h4>Number of Assets</h4><span id="assets_btm">0000</span>
+                  </div>
+                  <div class="col-sm-6">
+                  <h4>Revenue</h4><span id="revenue_btm">$000</span>
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-body -->
+          </div>
+          <!-- /.No of Asset -->
+
           <!-- Display Selection of Asset -->
           <div class="card">
             <div class="card-header">
@@ -247,6 +265,61 @@
         </section>
         <!-- /.Left col -->
         <section class="col-lg-5 connectedSortable">
+            <!-- Total Assets -->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-wallet"></i>
+                  Total Assets
+                </h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="form-group row text-center">
+                  <div class="col-sm-12">
+                  <h4>Total Assets</h4><span id="assets">0000</span>
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-body-->
+            </div>
+            <!-- /.Total Assets -->
+            <!-- Total Revenue -->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-comment-dollar"></i>
+                  Total Revenue
+                </h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="form-group row text-center">
+                  <div class="col-sm-12">
+                  <h4>Revenue</h4><span id="revenue">$000</span>
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-body-->
+            </div>
+            <!-- /.Total Revenue -->
+            
             <!-- Google Map -->
             <div class="card">
               <div class="card-header border-0">
@@ -292,6 +365,7 @@
               <!-- /.card-body-->
             </div>
             <!-- /.Bar Graph -->
+
         </section>
         <!-- right col -->
     </div>
