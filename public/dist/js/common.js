@@ -580,7 +580,6 @@ function getTotalRevenue(){
       dataType: "JSON",
       success: function(data) {
         $("#revenue").html(data[0].totalrevenue);
-        $("#revenue_btm").html(data[0].totalrevenue);
       }
   });
 }
@@ -605,7 +604,6 @@ function getTotalAsset(){
       dataType: "JSON",
       success: function(data) {
         $("#assets").html(data[0].totalasset);
-        $("#assets_btm").html(data[0].totalasset)
       }
   });
 }
@@ -635,7 +633,13 @@ function getTotalRevenueT(){
       },
       dataType: "JSON",
       success: function(data) {
-        $("#revenue_btm").html(data[0].totalrevenue);
+        
+        if(data.length !== undefined){
+          $("#revenue_btm").html(data[0].totalrevenue);
+          $("#showassetdetails").show();
+        }else{
+          $("#showassetdetails").hide();
+        }
       }
   });
 }

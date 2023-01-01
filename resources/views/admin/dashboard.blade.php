@@ -162,16 +162,16 @@
           <!-- /.Select Type of assest and Date range -->         
 
           <!-- No of Asset -->
-          <div class="card">
+          <div class="card" style="display:none;" id="showassetdetails">
             <!-- /.No of Asset -->
             <!-- /.card-header -->
               <div class="card-body">
                 <div class="form-group row text-center">
                   <div class="col-sm-6">
-                  <h4>Number of Assets</h4><span id="assets_btm">0000</span>
+                  <h5>Number of Selected Assets</h5><span id="assets_btm"></span>
                   </div>
                   <div class="col-sm-6">
-                  <h4>Revenue</h4><span id="revenue_btm">$000</span>
+                  <h5>Revenue of Selected Assets</h5><span id="revenue_btm"></span>
                   </div>
                 </div>
               </div>
@@ -184,7 +184,7 @@
             <div class="card-header">
               <h3 class="card-title">
                 <i aria-hidden="true" class="fa fa-info-circle"></i> 
-                Display Selection of Asset
+                Display Estimates
               </h3>
             </div>
             <!-- /.Display Selection of Asset -->
@@ -270,7 +270,7 @@
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="fas fa-wallet"></i>
-                  Total Assets
+                  Total Assets For client
                 </h3>
 
                 <div class="card-tools">
@@ -283,9 +283,9 @@
                 </div>
               </div>
               <div class="card-body">
-                <div class="form-group row text-center">
+                <div class="form-group row text-center mb-0">
                   <div class="col-sm-12">
-                  <h4>Total Assets</h4><span id="assets">0000</span>
+                  <h4 id="assets"></h4>
                   </div>
                 </div>
               </div>
@@ -297,7 +297,7 @@
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="fas fa-comment-dollar"></i>
-                  Total Revenue
+                  Total Revenue For client
                 </h3>
 
                 <div class="card-tools">
@@ -310,9 +310,9 @@
                 </div>
               </div>
               <div class="card-body">
-                <div class="form-group row text-center">
+                <div class="form-group row text-center mb-0">
                   <div class="col-sm-12">
-                  <h4>Revenue</h4><span id="revenue">$000</span>
+                  <h4 id="revenue"></h4>
                   </div>
                 </div>
               </div>
@@ -345,7 +345,7 @@
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="far fa-chart-bar"></i>
-                  Graph Based on Selected Asset
+                  Number of Assets per Month
                 </h3>
 
                 <div class="card-tools">
