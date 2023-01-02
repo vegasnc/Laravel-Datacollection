@@ -397,7 +397,17 @@ function barchart(startdate,enddate){
 
         barGraph = new Chart(ctx, {
           type: 'bar',
-          data: chartdata
+          data: chartdata,
+          options: {
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true,
+                  callback: function(value) {if (value % 1 === 0) {return value;}}
+                }
+              }]
+            }
+          }
         });
       }
   });
@@ -452,7 +462,7 @@ function BarChartTotalRevenue(startdate,enddate){
               borderColor: '#66bd9d',
               hoverBackgroundColor: '#10523a',
               hoverBorderColor: '#10523a',
-              data: countno
+              data: countno,
             }
           ]
         };
@@ -464,7 +474,17 @@ function BarChartTotalRevenue(startdate,enddate){
 
         barGraph1 = new Chart(ctx, {
           type: 'bar',
-          data: chartdata
+          data: chartdata,
+          options: {
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true,
+                  callback: function(value) {if (value % 1 === 0) {return value;}}
+                }
+              }]
+            }
+          }
         });
       }
   });
