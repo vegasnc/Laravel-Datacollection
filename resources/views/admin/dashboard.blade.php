@@ -166,12 +166,12 @@
             <!-- /.No of Asset -->
             <!-- /.card-header -->
               <div class="card-body">
-                <div class="form-group row text-center">
+                <div class="form-group row text-center mb-0">
                   <div class="col-sm-6">
-                  <h5>Number of Selected Assets</h5><span id="assets_btm"></span>
+                  <h5>Number of Selected Assets</h5><h4><span id="assets_btm"></span></h4>
                   </div>
                   <div class="col-sm-6">
-                  <h5>Revenue of Selected Assets</h5><span id="revenue_btm"></span>
+                  <h5>Revenue of Selected Assets</h5><h4><span id="revenue_btm"></span></h4>
                   </div>
                 </div>
               </div>
@@ -340,7 +340,7 @@
               </div>
             </div>
             <!-- /.Google Map -->
-            <!-- Bar Graph -->
+            <!-- Bar Graph No of total asset per month-->
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">
@@ -358,14 +358,35 @@
                 </div>
               </div>
               <div class="card-body">
-                <!-- <div id="bar-chart" style="height: 300px;"></div> -->
-                <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;">No Record Found</canvas>
                 <canvas id="barChartOnAjax" style="display: none;min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;">No Record Found</canvas>
               </div>
               <!-- /.card-body-->
             </div>
-            <!-- /.Bar Graph -->
+            <!-- /.Bar Graph no of total asset per month-->
 
+            <!-- Bar Graph total revenue per client per month-->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="far fa-chart-bar"></i>
+                  Total Revenue per Client per Month
+                </h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <canvas id="clientrevenuepermonthAjax" style="display: none;min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;">No Record Found</canvas>
+              </div>
+              <!-- /.card-body-->
+            </div>
+            <!-- /.Bar Graph total revenue per client per month-->
         </section>
         <!-- right col -->
     </div>

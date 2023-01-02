@@ -248,9 +248,10 @@ $(function () {
       getlistmeterimages();
       myMap1(startdate,enddate);
       barchart(startdate,enddate);
+      BarChartTotalRevenue(startdate,enddate);
       getTotalRevenueT();
       getTotalAssetT();
-      sessionStorage.removeItem('select_item_type_id');
+      //sessionStorage.removeItem('select_item_type_id');
 
       $("#spinner-div").hide();
     });  
@@ -259,42 +260,6 @@ $(function () {
       location.reload();
     });  
 
-    /*START BAR CHART*/
-    var areaChartData = {
-      labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-      datasets: [
-        {
-          label               : 'Selected Asset No of Count Per Month',
-          backgroundColor: '#66bd9d',
-          borderColor: '#66bd9d',
-          hoverBackgroundColor: '#10523a',
-          hoverBorderColor: '#10523a',
-          pointRadius          : false,
-          pointColor          : '#3b8bba',
-          pointStrokeColor    : 'rgba(60,141,188,1)',
-          pointHighlightFill  : '#fff',
-          pointHighlightStroke: 'rgba(60,141,188,1)',
-          data                : [5000, 10000, 15000, 20000, 25000, 30000, 35000]
-        }
-      ]
-    }
-
-    var barChartCanvas = $('#barChart');
-  
-    var barChartOptions = {
-      responsive              : true,
-      maintainAspectRatio     : false,
-      datasetFill             : false
-    }
-
-    new Chart(barChartCanvas, {
-      type: 'bar',
-      data: areaChartData,
-      options: barChartOptions
-    })
-
-    /* END BAR CHART */
-   
 });
 /* END BAR CHART */
 
@@ -415,7 +380,7 @@ function barchart(startdate,enddate){
           labels: monthno,
           datasets : [
             {
-              label: 'Selected Asset No of Count Per Month',
+              label: 'Number of Assets per Month',
               backgroundColor: '#66bd9d',
               borderColor: '#66bd9d',
               hoverBackgroundColor: '#10523a',
@@ -438,6 +403,73 @@ function barchart(startdate,enddate){
   });
 }
 /*END on selct ItemType show data in chart*/
+
+/*START on total revenue per Months */
+var barGraph1;
+function BarChartTotalRevenue(startdate,enddate){
+  var startdate = startdate;
+  var enddate = enddate;
+  var select_cl_id = sessionStorage.getItem('select_cl_id');
+  var select_location_id = sessionStorage.getItem('select_location_id');
+  var select_contact_id = sessionStorage.getItem('select_contact_id');
+  var select_item_type_id = sessionStorage.getItem('select_item_type_id');
+  var select_territory_id = sessionStorage.getItem('select_territory_id');
+
+  var _token = $('#token').val();
+  $.ajax({
+      url: "v1/getBarChartTotalRevenue",
+      type: "POST",
+      async: false,
+      dataType: "JSON",
+      data: { 
+        _token: _token, 
+        startdate: startdate,
+        enddate: enddate,
+        select_territory_id: select_territory_id,
+        select_cl_id: select_cl_id,
+        select_location_id: select_location_id,
+        select_contact_id: select_contact_id,
+        select_item_type_id: select_item_type_id, 
+      },
+      success: function(data) {
+        $("#clientrevenuepermonthAjax").show();
+        
+        data = JSON.parse(data);
+        var monthno = [];
+        var countno = [];
+
+        $.each(data, function(i, item) {
+            monthno.push(data[i].monthno);
+            countno.push(data[i].countno);
+        });
+
+        var chartdata = {
+          labels: monthno,
+          datasets : [
+            {
+              label: 'Total Revenue per Client per Month',
+              backgroundColor: '#66bd9d',
+              borderColor: '#66bd9d',
+              hoverBackgroundColor: '#10523a',
+              hoverBorderColor: '#10523a',
+              data: countno
+            }
+          ]
+        };
+        if (barGraph1) {
+          barGraph1.destroy();
+        }
+
+        var ctx = $("#clientrevenuepermonthAjax");
+
+        barGraph1 = new Chart(ctx, {
+          type: 'bar',
+          data: chartdata
+        });
+      }
+  });
+}
+/*END on total revenue per Months */
 
 function clientitemtype(){
   $("#clientiteamtype").select2({
@@ -636,10 +668,12 @@ function getTotalRevenueT(){
         
         if(data.length !== undefined){
           $("#revenue_btm").html(data[0].totalrevenue);
-          $("#showassetdetails").show();
-        }else{
-          $("#showassetdetails").hide();
-        }
+          if(select_item_type_id){
+            $("#showassetdetails").show();
+          }else{
+            $("#showassetdetails").hide();
+          }
+        }      
       }
   });
 }
