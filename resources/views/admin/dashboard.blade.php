@@ -199,7 +199,7 @@
                     <th>Client</th>
                     <th>Location</th>
                     <th>Contact</th>
-                   
+                    <th>ec_rate</th>
                    
                   </tr>
                   </thead>

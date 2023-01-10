@@ -223,11 +223,17 @@ $(function () {
         { data: 'company', name: 'Client', orderable: true, searchable: true },
         { data: 'loc_street_address', name: 'Location', orderable: true, searchable: true },
         { data: 'first', name: 'Contact', orderable: true, searchable: true },
+        { data: 'ec_rate', name: 'ec_rate', orderable: true, searchable: true },
       ],
       columnDefs: [{
         "defaultContent": "-",
         "targets": "_all"
-      }]
+      }],
+      rowCallback: function(row, data, index){
+        if(data["ec_rate"] != "0.00"){
+            $('td', row).css('background-color', '#99ab8c');
+        }
+      }
     });
 
   /*  $('#reservation').on('hide.daterangepicker', function (ev, picker) {

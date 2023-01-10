@@ -190,7 +190,8 @@ class ApiController extends Controller
         $enddate = $data['enddate'];
         $territory_id = $data['select_territory_id'];
         $item_type_id = $data['select_item_type_id'];
-        $url = env('API_URL_API').'API/listestimation.php?territory_id='.$territory_id.'&client_id='.$select_cl_id.'&location_id='.$select_location_id.'&contact_id='.$select_contact_id.'&item_type_id='.$item_type_id.'&start_date='.$startdate.'&end_date='.$enddate;    
+        $url = env('API_URL_API').'API/listestimation.php?territory_id='.$territory_id.'&client_id='.$select_cl_id.'&location_id='.$select_location_id.'&contact_id='.$select_contact_id.'&item_type_id='.$item_type_id.'&start_date='.$startdate.'&end_date='.$enddate;
+      
         $curl = curl_init();
         curl_setopt_array($curl, array(
           CURLOPT_URL => $url,
