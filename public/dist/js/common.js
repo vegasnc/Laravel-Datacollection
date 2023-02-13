@@ -250,8 +250,8 @@ $(function () {
       var startdate = $("#reservation").data('daterangepicker').startDate.format('YYYY-MM-DD');
       var enddate = $("#reservation").data('daterangepicker').endDate.format('YYYY-MM-DD');
       $("#spinner-div").show();
-      getlistmetercount();
-      getlistmeterimages();
+      //getlistmetercount();
+      //getlistmeterimages();
       myMap1(startdate,enddate);
       barchart(startdate,enddate);
       BarChartTotalRevenue(startdate,enddate);
@@ -409,7 +409,7 @@ function barchart(startdate,enddate){
               yAxes: [{
                 ticks: {
                   beginAtZero: true,
-                  callback: function(value) {if (value % 1 === 0) {return '$'+addCommas(value);}}
+                  callback: function(value) {if (value % 1 === 0) {return addCommas(value);}}
                 }
               }]
             }

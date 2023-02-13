@@ -210,13 +210,13 @@
           <!-- /.Display Selection of Asset -->
 
           <!-- Remove A - meter -->
-          <div class="card">
+          <!-- <div class="card">
             <div class="card-header">
               <h3 class="card-title">
                 <i class="fa fa-info-circle" aria-hidden="true"></i>
                 Remove - A - Meter
               </h3>
-            </div><!-- /.card-header -->
+            </div>
             <div class="card-body">
               <div class="form-group row text-center" id="livenumer" style="display:none;">
                 <div class="col-sm-12">
@@ -259,9 +259,8 @@
                     </div>
                 </div>
               </div>
-            </div><!-- /.card-body -->
-          </div>
-          <!-- /.Remove A - meter -->
+            </div>
+          </div> -->
         </section>
         <!-- /.Left col -->
         <section class="col-lg-5 connectedSortable">
