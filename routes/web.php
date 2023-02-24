@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DataCollectionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,4 +52,14 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('/users', 'App\Http\Controllers\TestController@users')->name('users');
 
     Route::post('/create-users', 'App\Http\Controllers\TestController@createUsers')->name('apicreateEnv');
-}); 
+});
+
+
+Route::get('/datacollection',[App\Http\Controllers\DataCollectionController::class, 'index'])->name('datacollection');
+Route::get('/data-form',[App\Http\Controllers\DataCollectionController::class, 'dataform'])->name('data-form');
+Route::post('/data-add',[App\Http\Controllers\DataCollectionController::class, 'dataadd'])->name('data-add');
+
+Route::get('/data-edit/{id}',[App\Http\Controllers\DataCollectionController::class, 'dataedit'])->name('data-edit');
+Route::post('/data-update/{id}',[App\Http\Controllers\DataCollectionController::class, 'dataupdate'])->name('data-update');
+
+Route::post('/data-delete/{id}',[App\Http\Controllers\DataCollectionController::class, 'destroy'])->name('data-delete');

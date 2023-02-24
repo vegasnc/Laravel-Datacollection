@@ -266,6 +266,13 @@ $(function () {
       location.reload();
     });  
 
+  
+    $('#datacollection').DataTable({
+      seraching: true,
+    });
+
+    $("#condition").select2();
+    
 });
 /* END BAR CHART */
 
@@ -744,4 +751,17 @@ function addCommas(nStr)
         x1 = x1.replace(rgx, '$1' + ',' + '$2');
     }
     return x1 + x2;
+}
+var x = document.getElementById("demo");
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+  $("#latitude").val(position.coords.latitude);
+  $("#longitude").val(position.coords.longitude);
 }
