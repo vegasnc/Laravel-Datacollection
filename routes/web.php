@@ -54,11 +54,11 @@ Route::group(['prefix' => 'v1'], function () {
 });
 
 
-Route::get('/datacollection',[App\Http\Controllers\DataCollectionController::class, 'index'])->name('datacollection');
-Route::get('/data-form',[App\Http\Controllers\DataCollectionController::class, 'dataform'])->name('data-form');
-Route::post('/data-add',[App\Http\Controllers\DataCollectionController::class, 'dataadd'])->name('data-add');
+Route::get('/datacollection',[App\Http\Controllers\DatacollectionController::class, 'index'])->name('datacollection');
+Route::get('/data-form',[App\Http\Controllers\DatacollectionController::class, 'dataform'])->name('data-form');
+Route::post('/data-add',[App\Http\Controllers\DatacollectionController::class, 'dataadd'])->name('data-add');
 
-Route::get('/data-edit/{id}',[App\Http\Controllers\DataCollectionController::class, 'dataedit'])->name('data-edit');
-Route::post('/data-update/{id}',[App\Http\Controllers\DataCollectionController::class, 'dataupdate'])->name('data-update');
+Route::get('/data-edit/{id}',[App\Http\Controllers\DatacollectionController::class, 'dataedit'])->name('data-edit');
+Route::post('/data-update/{id}',[App\Http\Controllers\DatacollectionController::class, 'dataupdate'])->name('data-update');
 
-Route::post('/data-delete/{id}',[App\Http\Controllers\DataCollectionController::class, 'destroy'])->name('data-delete');
+Route::post('/data-delete/{id}',[App\Http\Controllers\DatacollectionController::class, 'destroy'])->name('data-delete');
