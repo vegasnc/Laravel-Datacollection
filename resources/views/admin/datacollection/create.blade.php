@@ -1,5 +1,5 @@
 @extends('layouts.noref')
-@section('title',"ClickMatrix | DataCollection")
+@section('title',"ClickMetrix | DataCollection")
 
 @section('content')
  

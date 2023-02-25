@@ -1,5 +1,5 @@
 @extends('layouts.noref')
-@section('title',"ClickMatrix | DataCollection")
+@section('title',"ClickMetrix | DataCollection")
 @section('vuescript')
 <script src="{{asset('js/dashboard.js')}}"></script>
 @endsection
@@ -10,7 +10,7 @@
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-12">
-        <h1 class="mb-0 text-center">ClickMatrix</h1>
+        <h1 class="mb-0 text-center">ClickMetrix</h1>
       </div><!-- /.col -->
       <!-- <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
