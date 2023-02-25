@@ -58,6 +58,7 @@
                         <th>Condition</th>
                         <th>Tagged</th>
                         <th>Color</th>
+                        <th>Created</th>
                         <th width="280px">Action</th>
                     </tr>
                   </thead>
@@ -70,6 +71,7 @@
                         <td>{{ $user->condition }}</td>
                         <td>{{ $user->tagged=="0" ? 'No' : 'Yes' }}</td>
                         <td>{{ $user->color }}</td>
+                        <td>{{ $user->created_at }}</td>
                         <td>
                                
                                 <form action="{{route('data-delete',$user->id)}}" method="POST">

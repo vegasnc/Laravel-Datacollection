@@ -115,3 +115,6 @@ box-shadow: none;
 #datacollection.table-bordered td, .table-bordered th {
   border: 1px solid #10523a45;
 }
+.red{
+  color:red;
+}

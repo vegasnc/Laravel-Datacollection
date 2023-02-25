@@ -273,6 +273,31 @@ $(function () {
 
     $("#condition").select2();
     
+    $("#imgCapture").on("click", function() {
+      Webcam.set({
+        width: 320,
+        height: 240,
+        image_format: 'jpeg',
+        jpeg_quality: 90
+      });
+      Webcam.attach('#webcam');
+      $("#imgCapture").hide();
+      $("#btnCapture").show();
+      $("#webcam").show();
+    });
+
+    $("#btnCapture").on("click", function () {
+      Webcam.snap(function (data_uri) {
+        $("#webcam").hide();
+        $("#imgCaptureImg").show();
+        $("#imgCapture").show();
+        $("#btnCapture").hide();
+        $("#imgCaptureImg")[0].src = data_uri;
+        $("#photoData").val(data_uri);
+        Webcam.reset()
+        // $("#btnUpload").removeAttr("disabled");
+      });
+    });
 });
 /* END BAR CHART */
 

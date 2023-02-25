@@ -142,6 +142,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
 <!-- Common JS -->
 <script src="{{asset('dist/js/common.js')}}"></script>
+<script src="{{asset('dist/js/WebCam.js')}}"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key={{env('GOOGLE_MAP_KEY')}}&callback=myMap"></script>
 <script>
       $(document).ready(function() {

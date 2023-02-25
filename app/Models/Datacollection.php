@@ -13,11 +13,15 @@ class Datacollection extends Authenticatable
 
     protected $fillable = [
         'asset',
+        'latitude',
+        'longitude',
         'address',
         'quantity',
         'condition',
         'tagged',
         'color',
+        'description',
+        'photo',
     ];
 
     

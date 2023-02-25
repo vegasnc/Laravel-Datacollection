@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Datacollection;
+use Carbon\Carbon;
+use Storage;
 
 class DatacollectionController extends Controller
 {
@@ -47,12 +49,18 @@ class DatacollectionController extends Controller
     {
         $request->validate([
             'asset' => 'required',
-            'address' => 'required',
             'quantity' => 'required',
             'color' => 'required',
         ]);
-    
-        $user = Datacollection::create($request->all());
+        $data = $request->all();
+        $base64_str = substr($data['photo'], strpos($data['photo'], ",")+1);
+        $image = base64_decode($base64_str);
+        $current_date_time = Carbon::now()->timestamp;
+        $safeName = $current_date_time.'.'.'png';    
+        Storage::disk('public')->put('dist/img/photo/'.$safeName, $image);
+        $data = $request->all(); 
+        $data['photo'] = $safeName;
+        $user = Datacollection::create($data);
         if ($user) {
             return redirect()->route('datacollection')->with('success', 'Data created successfully.');
         }
@@ -95,13 +103,18 @@ class DatacollectionController extends Controller
     {
         $request->validate([
             'asset' => 'required',
-            'address' => 'required',
             'quantity' => 'required',
             'color' => 'required',
         ]);
         
         $data = $request->all();
         
+        $base64_str = substr($data['photo'], strpos($data['photo'], ",")+1);
+        $image = base64_decode($base64_str);
+        $current_date_time = Carbon::now()->timestamp;
+        $safeName = $current_date_time.'.'.'png';    
+        Storage::disk('public')->put('dist/img/photo/'.$safeName, $image);
+
         $array_data = array(
             "asset" => $data['asset'],
             "address" => $data['address'],
@@ -109,7 +122,12 @@ class DatacollectionController extends Controller
             "condition" => $data['condition'],
             "tagged" => $data['tagged'],
             "color" => $data['color'],
+            "latitude" => $data['latitude'],
+            "longitude" => $data['longitude'],
+            "description" => $data['description'],
+            "photo" => $safeName,
         );
+        
         
         Datacollection::where('id', $id)->update($array_data);
 
