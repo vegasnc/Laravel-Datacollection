@@ -3,7 +3,7 @@
      <!-- <a class="navbar-brand" href="{{ url('/') }}">
                     <img src="{{ asset('dist/img/gg_logo_new.jpg') }}" width="150" height="70">
                 </a> -->
-                <h1 class="logo-text pt-0">CLICKMETRIX</h1>
+                <h1 class="logo-text pt-0"><a href="{{ url('/') }}" style="color:#10523a;">CLICKMETRIX</a></h1>
     <!-- Left navbar links -->
     <!-- <ul class="navbar-nav ml-4" style="padding-top: 36px;">
      
