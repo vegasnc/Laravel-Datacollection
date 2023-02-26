@@ -129,7 +129,7 @@
                       <div class="col-xs-12 col-sm-12 col-md-12">
                           <div class="form-group">
                               <strong>Photo</strong>
-                              <button type="button" id="imgCapture" class="btn btn-success green-btn">Click Here on Web camera</button>  
+                              <button type="button" id="imgCapture" class="btn btn-success green-btn">Click here capture your photo</button>  
                               
                           </div>
                       </div>
