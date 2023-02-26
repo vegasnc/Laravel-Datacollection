@@ -123,7 +123,7 @@
                       <div class="col-xs-12 col-sm-12 col-md-12">
                           <div class="form-group">
                               <strong>Color (optional)</strong>
-                              <input type="text" id="color" name="color" class="form-control" placeholder="Color" required >
+                              <input type="text" id="color" name="color" class="form-control" placeholder="Color">
                           </div>
                       </div>
                       <div class="col-xs-12 col-sm-12 col-md-12">
