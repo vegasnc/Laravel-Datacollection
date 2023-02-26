@@ -51,7 +51,6 @@ class DatacollectionController extends Controller
     {
         $request->validate([
             'quantity' => 'required',
-            'color' => 'required',
         ]);
         $data = $request->all();
         $base64_str = substr($data['photo'], strpos($data['photo'], ",")+1);
@@ -120,7 +119,6 @@ class DatacollectionController extends Controller
     {
         $request->validate([
             'quantity' => 'required',
-            'color' => 'required',
         ]);
         
         $data = $request->all();
