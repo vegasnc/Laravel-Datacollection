@@ -44,10 +44,30 @@
                   @csrf
                   <div class="row">
                       <div class="col-xs-12 col-sm-12 col-md-12">
-                          <div class="form-group">
-                              <strong>Asset types<span class="red">*</span></strong>
-                              <input type="text" name="asset" value="{{ $user->asset }}" class="form-control" placeholder="Asset" require>
+                        <div class="row"> 
+                          <div class="col-sm-6">
+                            <div class="form-group">
+                                <strong>Please Select Asset Types</strong>
+                                <select class="form-control select2 select2-success" data-dropdown-css-class="select2-success" id="asset" name="asset" style="width: 100%;">
+                                  <option value="">Please Select</option>
+                                  <option value="1">Add New Asset</option>
+                                  @foreach($asset as $key=>$val)
+                                    @if($user->asset == $val['name'])
+                                    <option value="{{$val['name']}}" selected>{{$val['name']}}</option>
+                                    @else
+                                    <option value="{{$val['name']}}">{{$val['name']}}</option>
+                                    @endif
+                                  @endforeach
+                                </select>  
+                            </div>
                           </div>
+                          <div class="col-sm-6"  style="display:none;" id="addnewasset">
+                              <div class="form-group">
+                                <strong>Or Add New Asset Type</strong>
+                                <input type="text" id="addnewasset" name="addnewasset" class="form-control" placeholder="Enter Asset Name">
+                              </div>
+                          </div>
+                        </div>
                       </div>
                       <div class="col-xs-12 col-sm-12 col-md-12">
                           <div class="form-group">
@@ -67,7 +87,7 @@
                       <div class="col-xs-12 col-sm-12 col-md-12">
                           <div class="form-group">
                               <strong>Quantity<span class="red">*</span></strong>
-                              <input type="text" id="quantity" name="quantity" class="form-control" placeholder="Asset" value="{{ $user->quantity }}" required >
+                              <input type="number" id="quantity" name="quantity" class="form-control" placeholder="Asset" value="{{ $user->quantity }}" required >
                           </div>
                       </div>
                       <div class="col-xs-12 col-sm-12 col-md-12">
@@ -116,7 +136,7 @@
                       <div class="col-xs-12 col-sm-12 col-md-12">
                           <div class="form-group">
                               <img id="imgCaptureImg" @if($user->photo) src="<?php echo asset("storage/dist/img/photo/$user->photo")?>" @else style="display:none;" @endif width="300" height="270"/>
-                              <input id="photoData" type="hidden" name="photo"/>
+                              <input id="photoData" type="hidden" name="photo" value="{{ $user->photo }}"/>
                               <div id="webcam" class="mt-2" style="width:400px; height:400px;display:none;"></div>
                               <button type="button" style="display:none;" id="btnCapture" class="btn btn-success green-btn">capture photo</button>  
                           </div>

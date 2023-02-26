@@ -58,6 +58,7 @@
                         <th>Condition</th>
                         <th>Tagged</th>
                         <th>Color</th>
+                        <th>Asset Picture</th>
                         <th>Created</th>
                         <th width="280px">Action</th>
                     </tr>
@@ -71,6 +72,7 @@
                         <td>{{ $user->condition }}</td>
                         <td>{{ $user->tagged=="0" ? 'No' : 'Yes' }}</td>
                         <td>{{ $user->color }}</td>
+                        <td><img src="<?php echo asset("storage/dist/img/photo/$user->photo")?>" width="60" height="60"/></td>
                         <td>{{ $user->created_at }}</td>
                         <td>
                                

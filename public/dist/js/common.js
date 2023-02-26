@@ -272,7 +272,18 @@ $(function () {
     });
 
     $("#condition").select2();
-    
+
+    $("#asset").select2();
+    $('#asset').on('select2:select', function (e) {
+      var data = $(".select2 option:selected").val();
+      if(data == 1){
+        $("#addnewasset").show();
+      }else{
+        $("#addnewasset").hide();
+      }
+    });   
+
+
     $("#imgCapture").on("click", function() {
       Webcam.set({
         width: 320,
