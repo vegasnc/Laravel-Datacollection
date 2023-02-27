@@ -145,7 +145,7 @@
 <script src="https://unpkg.com/feather-icons"></script>
 <script src="{{asset('dist/js/webcamnew.js')}}"></script>
 <!-- <script src="https://maps.googleapis.com/maps/api/js?key={{env('GOOGLE_MAP_KEY')}}&callback=myMap"></script> -->
-<script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAP_KEY') }}&libraries=places&callback=initialize" async defer></script>
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAP_KEY') }}&libraries=places&callback=initialize" async defer></script> -->
 
 <script>
       $(document).ready(function() {
