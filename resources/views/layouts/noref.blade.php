@@ -142,11 +142,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
 <!-- Common JS -->
 <script src="{{asset('dist/js/common.js')}}"></script>
-<script src="{{asset('dist/js/WebCam.js')}}"></script>
 <script src="https://unpkg.com/feather-icons"></script>
 <script src="{{asset('dist/js/webcamnew.js')}}"></script>
 <!-- <script src="https://maps.googleapis.com/maps/api/js?key={{env('GOOGLE_MAP_KEY')}}&callback=myMap"></script> -->
-<script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAP_KEY') }}&libraries=places&callback=initialize" async defer></script>
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAP_KEY') }}&libraries=places&callback=initialize" async defer></script> -->
 
 <script>
       $(document).ready(function() {

@@ -136,38 +136,21 @@
                       <div class="col-xs-12 col-sm-12 col-md-12">
                           <div class="form-group">
                               <strong>Photo</strong>
-                              <button type="button" id="imgCapture" class="btn btn-success green-btn">Click here capture your photo</button>  
+                              <button type="button" id="btn_capture" class="btn btn-success green-btn ml-5">Click here capture your photo</button>  
                               
                           </div>
                       </div>
                       <div class="col-xs-12 col-sm-12 col-md-12">
                           <div class="form-group">
-                              <div class="display-cover">
+                            <div class="display-cover" id="photosection" style="display:none;"> 
                                 <video autoplay></video>
                                 <canvas class="d-none"></canvas>
-
-                                <div class="video-options">
-                                    <select name="" id="" class="custom-select">
-                                        <option value="">Select camera</option>
-                                    </select>
-                                </div>
-
                                 <img class="screenshot-image d-none" alt="">
-
+                                <input id="photoData" type="hidden" name="photo"/> 
                                 <div class="controls">
-                                    <button class="btn btn-danger play" title="Play"><i data-feather="play-circle"></i></button>
-                                    <button class="btn btn-info pause d-none" title="Pause"><i data-feather="pause"></i></button>
-                                    <button class="btn btn-outline-success screenshot d-none" title="ScreenShot"><i data-feather="image"></i></button>
+                                    <input type="button" id="btn_screenshot" class="btn btn-outline-success screenshot d-none" value="ScreenShot"/>
                                 </div>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="col-xs-12 col-sm-12 col-md-12">
-                          <div class="form-group">
-                              <img id="imgCaptureImg" style="display:none;" width="300" height="270"/>
-                              <input id="photoData" type="hidden" name="photo"/>
-                              <div id="webcam" class="mt-2" style="width:400px; height:400px;display:none;"></div>
-                              <button type="button" style="display:none;" id="btnCapture" class="btn btn-success green-btn">capture photo</button>  
+                            </div>
                           </div>
                       </div>
                       <div class="col-xs-12 col-sm-12 col-md-12 text-center">

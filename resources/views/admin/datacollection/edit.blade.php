@@ -136,17 +136,29 @@
                       <div class="col-xs-12 col-sm-12 col-md-12">
                           <div class="form-group">
                               <strong>Photo</strong>
-                              <button type="button" id="imgCapture" class="btn btn-success green-btn">Click here capture your photo</button>  
+                              <button type="button" id="btn_capture" class="btn btn-success green-btn ml-5">Click here capture your photo</button>  
                               
                           </div>
                       </div>
                       <div class="col-xs-12 col-sm-12 col-md-12">
                           <div class="form-group">
-                              <img id="imgCaptureImg" @if($user->photo) src="<?php echo asset("storage/dist/img/photo/$user->photo")?>" @else style="display:none;" @endif width="300" height="270"/>
-                              <input id="photoData" type="hidden" name="photo" value="{{ $user->photo }}"/>
-                              <div id="webcam" class="mt-2" style="width:400px; height:400px;display:none;"></div>
-                              <button type="button" style="display:none;" id="btnCapture" class="btn btn-success green-btn">capture photo</button>  
+                            <div class="display-cover" id="photosection" style="display:none;"> 
+                                <video autoplay></video>
+                                <canvas class="d-none"></canvas>
+                                <img class="screenshot-image d-none" alt="">
+                                <input id="photoData" type="hidden" name="photo"/> 
+                                <div class="controls">
+                                    <input type="button" id="btn_screenshot" class="btn btn-outline-success screenshot d-none" value="ScreenShot"/>
+                                </div>
+                            </div>
                           </div>
+                      </div>
+                      <div class="col-xs-12 col-sm-12 col-md-12">
+                          <div class="form-group">
+                          <div class="display-cover"> 
+                              <img @if($user->photo) src="<?php echo asset("storage/dist/img/photo/$user->photo")?>" @else style="display:none;" @endif width="428" height="240"/>
+                          </div>
+</div>
                       </div>
                       <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                         <button type="submit" class="btn btn-success green-btn">Submit</button>

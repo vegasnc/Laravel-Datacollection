@@ -25,15 +25,6 @@ const constraints = {
   }
 };
 
-// const getCameraSelection = async () => {
-//   const devices = await navigator.mediaDevices.enumerateDevices();
-//   const videoDevices = devices.filter(device => device.kind === 'videoinput');
-//   const options = videoDevices.map(videoDevice => {
-//     return `<option value="${videoDevice.deviceId}">${videoDevice.label}</option>`;
-//   });
-//   cameraOptions.innerHTML = options.join('');
-// };
-
 const getCameraSelection = async () => {
   const devices = await navigator.mediaDevices?.enumerateDevices();
   const videoDevices = devices.filter((device) => device.kind === "videoinput");
@@ -46,23 +37,36 @@ const getCameraSelection = async () => {
   }
 };
 
-play.onclick = () => {
-  if (streamStarted) {
-    video.play();
-    play.classList.add('d-none');
-    pause.classList.remove('d-none');
-    return;
-  }
-  if ('mediaDevices' in navigator && navigator.mediaDevices.getUserMedia) {
-    const updatedConstraints = {
-      ...constraints,
-      deviceId: {
-        exact: cameraOptions.value
+$(document).ready(function() {
+  getCameraSelection().then((r) => {
+      sessionStorage.setItem(
+          "camera",
+          JSON.stringify({
+              ...constraints,
+              deviceId: { exact: r.deviceId },
+          })
+      );
+  }).catch(
+      (e) => {
+        console.log(e)
       }
-    };
-    startStream(updatedConstraints);
-  }
-};
+  );
+
+  $("#btn_capture").on('click', ()=> {
+    $("#photosection").show();
+    if (streamStarted) {
+      video.play();
+      return;
+    }
+    if ('mediaDevices' in navigator && navigator.mediaDevices.getUserMedia) {
+      if (sessionStorage.getItem("camera")) {
+        startStream(JSON.parse(sessionStorage.getItem("camera")));
+      }
+    }
+  })
+
+});
+
 
 const startStream = async (constraints) => {
   const stream = await navigator.mediaDevices.getUserMedia(constraints);
@@ -71,37 +75,22 @@ const startStream = async (constraints) => {
 
 const handleStream = (stream) => {
   video.srcObject = stream;
-  play.classList.add('d-none');
-  pause.classList.remove('d-none');
-  screenshot.classList.remove('d-none');
   streamStarted = true;
+  $("#btn_screenshot").removeClass("d-none");
 };
 
-getCameraSelection();
-
-cameraOptions.onchange = () => {
-  const updatedConstraints = {
-    ...constraints,
-    deviceId: {
-      exact: cameraOptions.value
-    }
-  };
-  startStream(updatedConstraints);
-};
-
-const pauseStream = () => {
-  video.pause();
-  play.classList.remove('d-none');
-  pause.classList.add('d-none');
-};
 
 const doScreenshot = () => {
   canvas.width = video.videoWidth;
   canvas.height = video.videoHeight;
   canvas.getContext('2d').drawImage(video, 0, 0);
+
   screenshotImage.src = canvas.toDataURL('image/webp');
+  $("#photoData").val(canvas.toDataURL('image/webp'));
   screenshotImage.classList.remove('d-none');
+
+  $("#btn_screenshot").addClass("d-none");
+  video.pause();
 };
 
-pause.onclick = pauseStream;
-screenshot.onclick = doScreenshot;
+$("#btn_screenshot").on("click", doScreenshot);
