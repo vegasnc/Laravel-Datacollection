@@ -73,21 +73,28 @@
                           <div class="form-group">
                               <strong>Live Location</strong>
                               <button type="button" class="btn btn-success green-btn mb-1" onclick="getLocation()">Click here</button>
-                              <input type="text" id="latitude" name="latitude" class="form-control mb-1" placeholder="Latitude" value="{{ $user->latitude }}">
-                              <input type="text" id="longitude" name="longitude" class="form-control" placeholder="Longitude" value="{{ $user->longitude }}">
+                              <input type="hidden" id="latitude" name="latitude" class="form-control mb-1" placeholder="Latitude" value="{{ $user->latitude }}">
+                              <input type="hidden" id="longitude" name="longitude" class="form-control" placeholder="Longitude" value="{{ $user->longitude }}">
                               <p id="demo"></p>
                           </div>
                       </div>
                       <div class="col-xs-12 col-sm-12 col-md-12">
                           <div class="form-group">
+                              <strong>Address</strong>
+                              <textarea class="form-control" name="autoaddress" id="autoaddress" placeholder="Address" row="2">{{ $user->autoaddress }}</textarea>
+                          </div>
+                      </div>
+                      
+                      <div class="col-xs-12 col-sm-12 col-md-12">
+                          <div class="form-group">
                               <strong>Add Address Manually (optional)</strong>
-                              <textarea class="form-control" style="height:150px" name="address" placeholder="Address">{{ $user->address }}</textarea>
+                              <textarea class="form-control" name="address" placeholder="Address" row="2">{{ $user->address }}</textarea>
                           </div>
                       </div>
                       <div class="col-xs-12 col-sm-12 col-md-12">
                           <div class="form-group">
                               <strong>Quantity<span class="red">*</span></strong>
-                              <input type="number" id="quantity" name="quantity" class="form-control" placeholder="Asset" value="{{ $user->quantity }}" required >
+                              <input type="number" id="quantity" name="quantity" class="form-control" placeholder="Quantity" value="{{ $user->quantity }}" required >
                           </div>
                       </div>
                       <div class="col-xs-12 col-sm-12 col-md-12">

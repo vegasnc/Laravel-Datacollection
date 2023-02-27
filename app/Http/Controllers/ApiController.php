@@ -495,4 +495,21 @@ class ApiController extends Controller
         $response = json_decode($response,true);
         return response()->json($response);
     }
+    //Get location 
+    public function locationAddress(Request $request)
+    {
+        $data = $request->all();
+        $latitude = $data['latitude'];
+        $longitude = $data['longitude'];
+        
+         //google map api url
+         $url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=".$latitude.",".$longitude."&key=".env('GOOGLE_MAP_KEY');
+
+         // send http request
+         $geocode = file_get_contents($url);
+         $json = json_decode($geocode);
+         $address = $json->results[0]->formatted_address;
+        return response()->json($address);
+    }
+
 }

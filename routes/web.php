@@ -51,6 +51,8 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('/users', 'App\Http\Controllers\TestController@users')->name('users');
 
     Route::post('/create-users', 'App\Http\Controllers\TestController@createUsers')->name('apicreateEnv');
+
+    Route::POST('/location', 'App\Http\Controllers\ApiController@locationAddress')->name('location');
 });
 
 

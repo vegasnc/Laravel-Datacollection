@@ -71,11 +71,18 @@
                           <div class="form-group">
                               <strong>Live Location</strong>
                               <button type="button" class="btn btn-success green-btn mb-1" onclick="getLocation()">Click here</button>
-                              <input type="text" id="latitude" name="latitude" class="form-control mb-1" placeholder="Latitude">
-                              <input type="text" id="longitude" name="longitude" class="form-control" placeholder="Longitude">
+                              <input type="hidden" id="latitude" name="latitude" class="form-control mb-1" placeholder="Latitude">
+                              <input type="hidden" id="longitude" name="longitude" class="form-control" placeholder="Longitude">
                               <p id="demo"></p>
                           </div>
                       </div>
+                      <div class="col-xs-12 col-sm-12 col-md-12">
+                          <div class="form-group">
+                              <strong>Address</strong>
+                              <textarea class="form-control" name="autoaddress" id="autoaddress" placeholder="Address" row="2"></textarea>
+                          </div>
+                      </div>
+                      
                       <div class="col-xs-12 col-sm-12 col-md-12">
                           <div class="form-group">
                               <strong>Add Address Manually (optional)</strong>
@@ -85,7 +92,7 @@
                       <div class="col-xs-12 col-sm-12 col-md-12">
                           <div class="form-group">
                               <strong>Quantity<span class="red">*</span></strong>
-                              <input type="number" id="quantity" name="quantity" class="form-control" placeholder="Asset" required >
+                              <input type="number" id="quantity" name="quantity" class="form-control" placeholder="Quantity" required >
                           </div>
                       </div>
                       <div class="col-xs-12 col-sm-12 col-md-12">
@@ -131,6 +138,28 @@
                               <strong>Photo</strong>
                               <button type="button" id="imgCapture" class="btn btn-success green-btn">Click here capture your photo</button>  
                               
+                          </div>
+                      </div>
+                      <div class="col-xs-12 col-sm-12 col-md-12">
+                          <div class="form-group">
+                              <div class="display-cover">
+                                <video autoplay></video>
+                                <canvas class="d-none"></canvas>
+
+                                <div class="video-options">
+                                    <select name="" id="" class="custom-select">
+                                        <option value="">Select camera</option>
+                                    </select>
+                                </div>
+
+                                <img class="screenshot-image d-none" alt="">
+
+                                <div class="controls">
+                                    <button class="btn btn-danger play" title="Play"><i data-feather="play-circle"></i></button>
+                                    <button class="btn btn-info pause d-none" title="Pause"><i data-feather="pause"></i></button>
+                                    <button class="btn btn-outline-success screenshot d-none" title="ScreenShot"><i data-feather="image"></i></button>
+                                </div>
+                              </div>
                           </div>
                       </div>
                       <div class="col-xs-12 col-sm-12 col-md-12">

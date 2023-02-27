@@ -147,7 +147,9 @@ class DatacollectionController extends Controller
             "longitude" => $data['longitude'],
             "description" => $data['description'],
             "photo" => $safeName,
+            "autoaddress" => $data['autoaddress'],
         );
+
         
         
        

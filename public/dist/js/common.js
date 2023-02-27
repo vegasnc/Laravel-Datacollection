@@ -800,4 +800,19 @@ function getLocation() {
 function showPosition(position) {
   $("#latitude").val(position.coords.latitude);
   $("#longitude").val(position.coords.longitude);
+  loadaddress(position.coords.latitude,position.coords.longitude);
+}
+function loadaddress(latitude,longitude){
+  var token =$('meta[name="csrf-token"]').attr('content');
+  $.ajax({
+    url: "/v1/location",
+    type: "POST",
+    dataType: 'json',
+    data:{"latitude":latitude,"longitude":longitude,"_token":token},
+    cache:!1,
+    success: function(data){
+      $("#autoaddress").val(data);
+    }
+    
+  });
 }

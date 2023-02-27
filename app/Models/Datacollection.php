@@ -16,6 +16,7 @@ class Datacollection extends Authenticatable
         'latitude',
         'longitude',
         'address',
+        'autoaddress',
         'quantity',
         'condition',
         'tagged',
