@@ -189,9 +189,4 @@ class DatacollectionController extends Controller
             return redirect()->route('datacollection')->with('failed', 'Failed! Data not deleted');
         }
     }
-
-    public function camera()
-    {
-        return view('admin.camera');
-    }
 }
