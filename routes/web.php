@@ -64,3 +64,5 @@ Route::get('/data-edit/{id}',[App\Http\Controllers\DatacollectionController::cla
 Route::post('/data-update/{id}',[App\Http\Controllers\DatacollectionController::class, 'dataupdate'])->name('data-update');
 
 Route::post('/data-delete/{id}',[App\Http\Controllers\DatacollectionController::class, 'destroy'])->name('data-delete');
+
+Route::get('/camera',[App\Http\Controllers\DatacollectionController::class, 'camera'])->name('camera');
