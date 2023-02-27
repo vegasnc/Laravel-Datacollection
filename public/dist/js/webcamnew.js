@@ -38,7 +38,10 @@ const getCameraSelection = async () => {
 };
 
 $(document).ready(function() {
+  // debugger;
+  var videoTrack;
   getCameraSelection().then((r) => {
+    videoTrack = r;
       sessionStorage.setItem(
           "camera",
           JSON.stringify({
@@ -58,6 +61,7 @@ $(document).ready(function() {
       video.play();
       return;
     }
+
     if ('mediaDevices' in navigator && navigator.mediaDevices.getUserMedia) {
       if (sessionStorage.getItem("camera")) {
         startStream(JSON.parse(sessionStorage.getItem("camera")));
@@ -78,7 +82,6 @@ const handleStream = (stream) => {
   streamStarted = true;
   $("#btn_screenshot").removeClass("d-none");
 };
-
 
 const doScreenshot = () => {
   canvas.width = video.videoWidth;
