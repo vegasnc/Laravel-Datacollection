@@ -1,7 +1,6 @@
 feather.replace();
 
 const controls = document.querySelector('.controls');
-const cameraOptions = document.querySelector('.video-options>select');
 const video = document.querySelector('video');
 const canvas = document.querySelector('canvas');
 const screenshotImage = document.querySelector('img');
@@ -21,10 +20,11 @@ const constraints = {
       min: 720,
       ideal: 1080,
       max: 1440
-    },
-    facingMode: {
-      exact: 'environment'
-    },
+    }
+    // facingMode: {
+    //   exact: 'environment'
+    // },
+    // facingMode: "environment"
   }
 };
 
@@ -40,36 +40,63 @@ const getCameraSelection = async () => {
   }
 };
 
+const ios = () => {
+  if (typeof window === `undefined` || typeof navigator === `undefined`) return false;
+
+  return /iPhone|iPad|iPod/i.test(navigator.userAgent || navigator.vendor || (window.opera && opera.toString() === `[object Opera]`));
+};
+
 $(document).ready(function() {
-  // debugger;
-  getCameraSelection().then((r) => {
-      sessionStorage.setItem(
-          "camera",
-          JSON.stringify({
-              ...constraints,
-              deviceId: { exact: r.deviceId },
-          })
-      );
-  }).catch(
-      (e) => {
-        console.log(e)
-      }
-  );
+  const isiPhone = ios();
+
+  if( !isiPhone ) {
+    getCameraSelection().then((r) => {
+        sessionStorage.setItem(
+            "camera",
+            JSON.stringify({
+                ...constraints,
+                deviceId: { exact: r.deviceId },
+            })
+        );
+    }).catch(
+        (e) => {
+          console.log(e)
+        }
+    );
+  }
 
   $("#btn_capture").on('click', ()=> {
-    $("#photosection").show();
-    if (streamStarted) {
-      video.play();
-      return;
-    }
-    if ('mediaDevices' in navigator && navigator.mediaDevices.getUserMedia) {
-      if (sessionStorage.getItem("camera")) {
-        startStream(JSON.parse(sessionStorage.getItem("camera")));
+    if( isiPhone ) {
+      $("#btn_ios_capture").click();
+    } else {
+      $("#photosection").show();
+      if (streamStarted) {
+        video.play();
+        return;
+      }
+      if ('mediaDevices' in navigator && navigator.mediaDevices.getUserMedia) {
+        if (sessionStorage.getItem("camera")) {
+          startStream(JSON.parse(sessionStorage.getItem("camera")));
+        }
       }
     }
   })
-
 });
+
+const handleImageSelect = (event) => {
+  $("#iosphotosection").show();
+  const file = event.target.files[0];
+  const fileReader = new FileReader();
+  fileReader.onload = function() {
+      const image = new Image();
+      image.src = fileReader.result;
+      image.className = "ios-img";
+      $("#photoData").val(fileReader.result);
+      $("#iosphotosection").html(image);
+  }
+
+  fileReader.readAsDataURL(file);
+}
 
 
 const startStream = async (constraints) => {

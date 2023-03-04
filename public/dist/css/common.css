@@ -225,4 +225,9 @@ video {
 .controls > button:hover svg {
   color: white;
 }
+
+.ios-img {
+  width: 100%;
+}
+
 /*end webcam*/

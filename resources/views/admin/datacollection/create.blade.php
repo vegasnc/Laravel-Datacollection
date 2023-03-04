@@ -137,7 +137,7 @@
                           <div class="form-group">
                               <strong>Photo</strong>
                               <button type="button" id="btn_capture" class="btn btn-success green-btn ml-5">Click here capture your photo</button>  
-                              
+                              <input id="btn_ios_capture" type="file" accept="image/*" onchange="handleImageSelect(event)" hidden>
                           </div>
                       </div>
                       <div class="col-xs-12 col-sm-12 col-md-12">
@@ -150,6 +150,9 @@
                                 <div class="controls">
                                     <input type="button" id="btn_screenshot" class="btn btn-outline-success screenshot d-none" value="ScreenShot"/>
                                 </div>
+                            </div>
+                            <div class="display-cover" id="iosphotosection" style="display:none;">
+                            
                             </div>
                           </div>
                       </div>
