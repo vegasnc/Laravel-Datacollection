@@ -91,23 +91,68 @@
                               <textarea class="form-control" name="address" placeholder="Address" row="2">{{ $user->address }}</textarea>
                           </div>
                       </div>
+
+                      <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="row"> 
+                          <div class="col-sm-6">
+                            <div class="form-group">
+                                <strong>Please Select Status Types</strong>
+                                <select class="form-control select3 select2-success" data-dropdown-css-class="select2-success" id="status" name="status" style="width: 100%;">
+                                  <option value="">Please Select</option>
+                                  <option value="1">Add New Status</option>
+                                  @foreach($status as $key=>$val)
+                                    @if($user->status == $val['name'])
+                                    <option value="{{$val['name']}}" selected>{{$val['name']}}</option>
+                                    @else
+                                    <option value="{{$val['name']}}">{{$val['name']}}</option>
+                                    @endif
+                                  @endforeach
+                                </select>  
+                            </div>
+                          </div>
+                          <div class="col-sm-6"  style="display:none;" id="addnewstatus">
+                              <div class="form-group">
+                                <strong>Or Add New Status Type</strong>
+                                <input type="text" id="addnewstatus" name="addnewstatus" class="form-control" placeholder="Enter Status Name">
+                              </div>
+                          </div>
+                        </div>
+                      </div>
+
                       <div class="col-xs-12 col-sm-12 col-md-12">
                           <div class="form-group">
                               <strong>Quantity<span class="red">*</span></strong>
                               <input type="number" id="quantity" name="quantity" class="form-control" placeholder="Quantity" value="{{ $user->quantity }}" required >
                           </div>
                       </div>
+
                       <div class="col-xs-12 col-sm-12 col-md-12">
-                          <div class="form-group">
-                              <strong>Condition</strong>
-                              <select class="form-control select2 select2-success" data-dropdown-css-class="select2-success" id="condition" name="condition" style="width: 100%;">
-                                <option value="Like New" {{ $user->condition=="Like New" ? 'Selected' : '' }}>Like New</option>
-                                <option value="Fair" {{ $user->condition=="Fair" ? 'Selected' : '' }}>Fair</option>
-                                <option value="Used" {{ $user->condition=="Used" ? 'Selected' : '' }}>Used</option>
-                                <option value="Damaged" {{ $user->condition=="Damaged" ? 'Selected' : '' }}>Damaged</option>
-                              </select>  
+                        <div class="row"> 
+                          <div class="col-sm-6">
+                            <div class="form-group">
+                                <strong>Please Select Action Types</strong>
+                                <select class="form-control select4 select2-success" data-dropdown-css-class="select2-success" id="action" name="action" style="width: 100%;">
+                                  <option value="">Please Select</option>
+                                  <option value="1">Add New Action</option>
+                                  @foreach($action as $key=>$val)
+                                    @if($user->action == $val['name'])
+                                    <option value="{{$val['name']}}" selected>{{$val['name']}}</option>
+                                    @else
+                                    <option value="{{$val['name']}}">{{$val['name']}}</option>
+                                    @endif
+                                  @endforeach
+                                </select>  
+                            </div>
                           </div>
+                          <div class="col-sm-6"  style="display:none;" id="addnewaction">
+                              <div class="form-group">
+                                <strong>Or Add New Action Type</strong>
+                                <input type="text" id="addnewaction" name="addnewaction" class="form-control" placeholder="Enter Action Name">
+                              </div>
+                          </div>
+                        </div>
                       </div>
+                      
                       <div class="col-xs-12 col-sm-12 col-md-12">
                           <div class="form-group">
                             <strong>Tagged</strong>
@@ -127,46 +172,60 @@
                               <textarea class="form-control" name="description" placeholder="Description" row="3">{{ $user->description }}</textarea>
                           </div>
                       </div>
-                      <div class="col-xs-12 col-sm-12 col-md-12">
+
+                      <div class="col-xs-12 col-sm-6 col-md-3">
                           <div class="form-group">
                               <strong>Color (optional)</strong>
-                              <input type="text" id="color" name="color" class="form-control" placeholder="Color" value="{{ $user->color }}">
+                              <input type="color" id="color" name="color" class="form-control" placeholder="Color" value="{{ $user->color }}">
                           </div>
                       </div>
                       <div class="col-xs-12 col-sm-12 col-md-12">
                           <div class="form-group">
                               <strong>Photo</strong>
                               <button type="button" id="btn_capture" class="btn btn-success green-btn ml-5">Click here capture your photo</button>  
-                              
+                              <input id="btn_ios_capture" type="file" accept="image/*" onchange="handleImageSelect(event)" hidden>
                           </div>
                       </div>
                       <div class="col-xs-12 col-sm-12 col-md-12">
                           <div class="form-group">
                             <div class="display-cover" id="photosection" style="display:none;"> 
                                 <video autoplay></video>
-                                <canvas class="d-none"></canvas>
-                                <img class="screenshot-image d-none" alt="">
-                                <input id="photoData" type="hidden" name="photo"/> 
+                                <canvas class="d-none"></canvas> 
                                 <div class="controls">
                                     <input type="button" id="btn_screenshot" class="btn btn-outline-success screenshot d-none" value="ScreenShot"/>
                                 </div>
+                            </div>
+                            <input type="hidden" id="photo_num" name="photo_num" value="0"/>
+                            <div class="display-cover" id="iosphotosection" style="display:none;">
+                            
                             </div>
                           </div>
                       </div>
                       <div class="col-xs-12 col-sm-12 col-md-12">
                           <div class="form-group">
-                          <div class="display-cover"> 
-                              <img @if($user->photo) src="<?php echo asset("storage/dist/img/photo/$user->photo")?>" @else style="display:none;" @endif width="428" height="240"/>
+                              <div class="row" id="gallery">
+                                  @foreach($photo_arr as $key=>$val)
+                                    <div class="col-xs-12 col-sm-6 col-md-3 image-item" style="margin-bottom: 2px; padding:2px !important;">
+                                        <img class="image-template" alt="" style="width: 100%; height: auto" src="<?php echo asset("storage/dist/img/photo/$val")?>">
+                                        <input class="photoData" type="hidden" name="photo"/>
+                                    </div>
+                                  @endforeach
+
+                              </div>
                           </div>
-</div>
                       </div>
                       <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                         <button type="submit" class="btn btn-success green-btn">Submit</button>
                         <a class="btn btn-success green-btn" href="{{ route('datacollection') }}"> Cancel</a>
                       </div>
                   </div>
-            
               </form>
+              </div>
+              <div id="temp_gallery" class="d-none">
+                <div class="col-xs-12 col-sm-6 col-md-3 image-item" style="margin-bottom: 2px; padding:2px !important;">
+                    <img class="image-template" alt="" style="width: 100%; height: auto">
+                    <input class="photoData" type="hidden" name="photo"/>
+                </div>
               </div>
             </div><!-- /.card-body -->
           </div>

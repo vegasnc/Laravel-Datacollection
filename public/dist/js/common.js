@@ -283,6 +283,26 @@ $(function () {
       }
     });   
 
+    
+    $("#status").select2();
+    $('#status').on('select2:select', function (e) {
+      var data = $(".select3 option:selected").val();
+      if(data == 1){
+        $("#addnewstatus").show();
+      }else{
+        $("#addnewstatus").hide();
+      }
+    });   
+
+    $("#action").select2();
+    $('#action').on('select2:select', function (e) {
+      var data = $(".select4 option:selected").val();
+      if(data == 1){
+        $("#addnewaction").show();
+      }else{
+        $("#addnewaction").hide();
+      }
+    });   
 
     $("#imgCapture").on("click", function() {
       Webcam.set({
@@ -708,6 +728,7 @@ function getTotalAsset(){
       }
   });
 }
+
 function getTotalRevenueT(){
   var _token = $('#token').val();
   var select_cl_id = sessionStorage.getItem('select_cl_id');

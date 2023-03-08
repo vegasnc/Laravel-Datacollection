@@ -9,6 +9,8 @@ let streamStarted = false;
 
 const [play, pause, screenshot] = buttons;
 
+var rateImage = -1;
+
 const constraints = {
   video: {
     width: {
@@ -21,10 +23,6 @@ const constraints = {
       ideal: 1080,
       max: 1440
     }
-    // facingMode: {
-    //   exact: 'environment'
-    // },
-    // facingMode: "environment"
   }
 };
 
@@ -47,7 +45,8 @@ const ios = () => {
 };
 
 $(document).ready(function() {
-  const isiPhone = ios();
+  // const isiPhone = ios();
+  const isiPhone = true;
 
   if( !isiPhone ) {
     getCameraSelection().then((r) => {
@@ -67,7 +66,7 @@ $(document).ready(function() {
 
   $("#btn_capture").on('click', ()=> {
     if( isiPhone ) {
-      $("#btn_ios_capture").click();
+      $("#btn_ios_capture").trigger("click");
     } else {
       $("#photosection").show();
       if (streamStarted) {
@@ -83,21 +82,34 @@ $(document).ready(function() {
   })
 });
 
-const handleImageSelect = (event) => {
+const handleImageSelect = async (event) => {
   $("#iosphotosection").show();
-  const file = event.target.files[0];
-  const fileReader = new FileReader();
-  fileReader.onload = function() {
-      const image = new Image();
-      image.src = fileReader.result;
-      image.className = "ios-img";
-      $("#photoData").val(fileReader.result);
-      $("#iosphotosection").html(image);
+  var fileArr = event.target.files;
+  $("#photo_num").val(fileArr.length);
+  var x = 0;
+  for(let file of fileArr) {
+    const fileReader = new FileReader();
+    fileReader.onload = async () => {
+        var path = fileReader.result;
+
+        await getMeta(path, (err, img) => {
+          $("#temp_gallery .photoData").attr("value", path);
+          $("#temp_gallery .photoData").attr("name", "photo" + x);
+          x ++;
+          
+          var imageWidth = $("#image_template").width() - 4;
+          rateImage = img.naturalHeight / img.naturalWidth;
+          var imageHeight = imageWidth / img.naturalWidth * img.naturalHeight;
+          $("#temp_gallery .image-item").height((imageHeight + 4) + "px")
+          $("#temp_gallery .image-template").attr("src", path);
+          var temp_gallery = $("#temp_gallery").html();
+          $("#gallery").append(temp_gallery);
+        });
+    }
+    fileReader.readAsDataURL(file);
   }
 
-  fileReader.readAsDataURL(file);
 }
-
 
 const startStream = async (constraints) => {
   const stream = await navigator.mediaDevices.getUserMedia(constraints);
@@ -115,12 +127,43 @@ const doScreenshot = () => {
   canvas.height = video.videoHeight;
   canvas.getContext('2d').drawImage(video, 0, 0);
 
-  screenshotImage.src = canvas.toDataURL('image/webp');
-  $("#photoData").val(canvas.toDataURL('image/webp'));
-  screenshotImage.classList.remove('d-none');
+  var path = canvas.toDataURL('image/webp');
+  var photo_num = parseInt($("#photo_num").val());
+  $("#photo_num").val(photo_num + 1);
+  $("#temp_gallery .photoData").attr("value", path);
+  $("#temp_gallery .photoData").attr("name", "photo" + photo_num);
 
-  $("#btn_screenshot").addClass("d-none");
-  video.pause();
+  getMeta(path, (err, img) => {
+    var imageWidth = $("#image_template").width() - 4;
+    rateImage = img.naturalHeight / img.naturalWidth;
+    var imageHeight = imageWidth / img.naturalWidth * img.naturalHeight;
+    $("#temp_gallery .image-item").height((imageHeight + 4) + "px")
+    $("#temp_gallery .image-template").attr("src", path);
+    var temp_gallery = $("#temp_gallery").html();
+    $("#gallery").append(temp_gallery);
+  });
+
+  
+};
+
+const resizeCaptureImg = () => {
+  var divWidth = $(".image-item").width() - 4;
+  var divHeight = divWidth * rateImage + 4;
+  if(rateImage != -1) {
+    $(".image-item").height(divHeight + "px");
+  }
+};
+
+const getMeta = (url, cb) => {
+  const img = new Image();
+  img.onload = () => cb(null, img);
+  img.onerror = (err) => cb(err);
+  img.src = url;
 };
 
 $("#btn_screenshot").on("click", doScreenshot);
+
+$(window).on('resize', function () {
+  // Do something.
+  resizeCaptureImg();
+});

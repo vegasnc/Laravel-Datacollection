@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Datacollection;
 use App\Models\Asset;
+use App\Models\Status;
+use App\Models\Action;
 use Carbon\Carbon;
 use Storage;
 
@@ -38,7 +40,9 @@ class DatacollectionController extends Controller
     public function dataform()
     {
         $asset = asset::all();
-        return view('admin.datacollection.create',compact('asset'));
+        $status = status::all();
+        $action = action::all();
+        return view('admin.datacollection.create',compact('asset', 'status', 'action'));
     }
     
     /**
@@ -50,16 +54,36 @@ class DatacollectionController extends Controller
     public function dataadd(Request $request)
     {
         $request->validate([
-            'quantity' => 'required',
+            'asset' => 'required',
+            'status' => 'required',
+            'action' => 'required',
+            'quantity' => 'required'
         ]);
+        
         $data = $request->all();
-        $base64_str = substr($data['photo'], strpos($data['photo'], ",")+1);
-        $image = base64_decode($base64_str);
-        $current_date_time = Carbon::now()->timestamp;
-        $safeName = $current_date_time.'.'.'png';    
-        Storage::disk('public')->put('dist/img/photo/'.$safeName, $image);
+
+        $photo_cnt = 0;
+        $photo_datas = "";
+        if( isset( $data['photo_num'] ) && $data['photo_num'] != "" ) {
+            $photo_cnt = $data['photo_num'];
+        }
+
+        for($x = 0; $x < $photo_cnt; $x ++) {
+            $base64_str = substr($data['photo'.$x], strpos($data['photo'.$x], ",")+1);
+            $image = base64_decode($base64_str);
+            $current_date_time = Carbon::now()->timestamp;
+            $safeName = $current_date_time.'_'.$x.'.'.'png';    
+            Storage::disk('public')->put('dist/img/photo/'.$safeName, $image);
+            if( $photo_datas == '' )
+                $photo_datas = $safeName;
+            else
+                $photo_datas = $photo_datas.",".$safeName;
+        }
+
+        
+        
         $data = $request->all(); 
-        $data['photo'] = $safeName;
+        $data['photo'] = $photo_datas;
 
         if(isset($data['addnewasset']) && $data['addnewasset'] != ""){
             $array_new_asset = array(
@@ -67,11 +91,25 @@ class DatacollectionController extends Controller
             );
             Asset::create($array_new_asset);
             $data['asset'] = $data['addnewasset'];
-            $user = Datacollection::create($data);
-        }else{
-            $user = Datacollection::create($data);
         }
-        
+
+        if(isset($data['addnewstatus']) && $data['addnewstatus'] != ""){
+            $array_new_status = array(
+                'name'=>$data['addnewstatus'],
+            );
+            Status::create($array_new_status);
+            $data['status'] = $data['addnewstatus'];
+        }
+
+        if(isset($data['addnewaction']) && $data['addnewaction'] != ""){
+            $array_new_action = array(
+                'name'=>$data['addnewaction'],
+            );
+            Action::create($array_new_action);
+            $data['action'] = $data['addnewaction'];
+        }
+
+        $user = Datacollection::create($data);
 
         if ($user) {
             return redirect()->route('datacollection')->with('success', 'Data created successfully.');
@@ -101,8 +139,17 @@ class DatacollectionController extends Controller
     public function dataedit($id)
     {   
         $asset = asset::all();
+        $status = status::all();
+        $action = action::all();
         $user = DB::table('datacollection')->where('id', $id)->first();
-        return view('admin.datacollection.edit',compact('user','asset'));
+        $photos = $user->photo;
+        $photo_arr = array();
+        $photo_token = strtok($photos, ",");
+        while( $photo_token !== false ) {
+            array_push($photo_arr, $photo_token);
+            $photo_token = strtok(",");
+        }
+        return view('admin.datacollection.edit',compact('user','asset','status','action', 'photo_arr'));
     }
     function is_base64($str)
     {

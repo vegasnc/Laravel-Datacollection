@@ -54,8 +54,9 @@
                     <tr>
                         <th>No</th>
                         <th>Asset</th>
+                        <th>Status</th>
                         <th>Quantity</th>
-                        <th>Condition</th>
+                        <th>Action</th>
                         <th>Tagged</th>
                         <th>Color</th>
                         <th>Asset Picture</th>
@@ -64,15 +65,30 @@
                     </tr>
                   </thead>
                   <tbody>
+                  <?php $id = 1;?>
                   @foreach ($users as $user)
                     <tr>
-                        <td>{{ $user->id }}</td>
+                        <td>{{ $id ++ }}</td>
                         <td>{{ $user->asset }}</td>
+                        <td>{{ $user->status }}</td>
                         <td>{{ $user->quantity }}</td>
-                        <td>{{ $user->condition }}</td>
+                        <td>{{ $user->action }}</td>
                         <td>{{ $user->tagged=="0" ? 'No' : 'Yes' }}</td>
                         <td>{{ $user->color }}</td>
-                        <td><img src="<?php echo asset("storage/dist/img/photo/$user->photo")?>" width="60" height="60"/></td>
+                        <td>
+                          <?php 
+                            $photos = $user->photo;
+                            $photo_arr = array();
+                            $photo_token = strtok($photos, ",");
+                            while( $photo_token !== false ) {
+                                array_push($photo_arr, $photo_token);
+                                $photo_token = strtok(",");
+                            }
+                          ?>
+                          @foreach($photo_arr as $key=>$val)
+                            <img src="<?php echo asset("storage/dist/img/photo/$val")?>" width="30" height="30"/>
+                          @endforeach
+                        </td>
                         <td>{{ $user->created_at }}</td>
                         <td>
                                
